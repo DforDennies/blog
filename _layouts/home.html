@@ -13,7 +13,7 @@ layout: default
 
 <div class="container">
   <div class="tabs">
-    <a href="#" class="active" onclick="filterPosts('all');return false;">全部</a>
+    <a href="#" class="active" onclick="filterPosts('all');return false;">全部 <span class="tab-count">{{ site.posts.size }}</span></a>
     <a href="#" onclick="filterPosts('AI 產品策略');return false;">AI 產品策略</a>
     <a href="#" onclick="filterPosts('AI/ML 技術');return false;">AI/ML 技術</a>
     <a href="#" onclick="filterPosts('數據驅動決策');return false;">數據驅動決策</a>
@@ -23,15 +23,28 @@ layout: default
 
   <div class="post-list">
     {% assign sorted_posts = site.posts | sort: 'date' | reverse %}
+    {% assign counter = 1 %}
     {% for post in sorted_posts %}
-    <a href="{{ post.url | prepend: site.baseurl }}" class="post-item" data-category="{{ post.categories | first }}">
-      <div class="post-meta">
-        <span class="post-category">{{ post.categories | first }}</span>
+    {% assign cat = post.categories | first %}
+    {% if cat == 'AI 產品策略' %}{% assign cat_class = 'cat-ai-product' %}
+    {% elsif cat == 'AI/ML 技術' %}{% assign cat_class = 'cat-ai-ml' %}
+    {% elsif cat == '數據驅動決策' %}{% assign cat_class = 'cat-data' %}
+    {% elsif cat == '平台架構' %}{% assign cat_class = 'cat-platform' %}
+    {% else %}{% assign cat_class = 'cat-kolr' %}{% endif %}
+    <a href="{{ post.url | prepend: site.baseurl }}" class="post-item" data-category="{{ cat }}">
+      <div class="post-number">{{ counter }}</div>
+      <div class="post-content">
+        <div class="post-meta">
+          <span class="post-category {{ cat_class }}">{{ cat }}</span>
+        </div>
+        <div class="post-title">{{ post.title }}</div>
+        <div class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
+        <div class="post-bottom">
+          <span>{{ post.content | number_of_words | divided_by: 300 | plus: 1 }} min read</span>
+        </div>
       </div>
-      <div class="post-title">{{ post.title }}</div>
-      <div class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 40 }}</div>
-      <div class="post-read-time">{{ post.content | number_of_words | divided_by: 300 | plus: 1 }} min read</div>
     </a>
+    {% assign counter = counter | plus: 1 %}
     {% endfor %}
   </div>
 </div>
@@ -39,10 +52,13 @@ layout: default
 <script>
 function filterPosts(cat) {
   document.querySelectorAll('.tabs a').forEach(a => a.classList.remove('active'));
-  event.target.classList.add('active');
+  event.target.closest('a').classList.add('active');
+  let n = 0;
   document.querySelectorAll('.post-item').forEach(item => {
     if (cat === 'all' || item.dataset.category === cat) {
       item.style.display = '';
+      n++;
+      item.querySelector('.post-number').textContent = n;
     } else {
       item.style.display = 'none';
     }
