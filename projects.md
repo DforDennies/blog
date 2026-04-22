@@ -45,9 +45,31 @@ permalink: /projects/
 
 ## 規格文件範例
 
-> PM 的核心產出之一是文件。以下是脫敏後的真實規格文件。
+> PM 的核心產出之一是文件。以下是脫敏後的真實規格文件，涵蓋 SoW、PRD、Tech Spec、Feature Spec、Data Spec。
 
-*（即將上線）*
+### SoW — GA 自定義貼標優化（金融客戶）
+企業交付工作說明書：GCP 元件規劃 + 驗收標準 + 變更管理  
+[→ 閱讀全文]({{ site.baseurl }}/specs/SoW-GA貼標優化-脫敏版/)
+
+### SoW — AI User Manual（製造業客戶）
+AI 專案三階段交付：模型流程 + WBS 時程 + 角色職責 + 驗收標準  
+[→ 閱讀全文]({{ site.baseurl }}/specs/SoW-AI-User-Manual-脫敏版/)
+
+### PRD — 社群爬蟲系統
+完整 PRD：Executive Summary → User Stories → Success Metrics → 技術架構  
+[→ 閱讀全文]({{ site.baseurl }}/specs/PRD-社群爬蟲系統-脫敏版/)
+
+### Tech Spec — 社群爬蟲系統
+搭配 PRD 的技術設計文檔：系統架構圖 → 資料流 → 錯誤處理 → DB Schema  
+[→ 閱讀全文]({{ site.baseurl }}/specs/Tech-Spec-社群爬蟲系統-脫敏版/)
+
+### Feature Spec — 全球網紅搜尋
+產品功能規格：Problem Alignment → Acceptance Criteria → Tracking 埋點設計  
+[→ 閱讀全文]({{ site.baseurl }}/specs/Feature-Spec-全球搜尋-脫敏版/)
+
+### Data Spec — 銷售報表規格書
+資料工程規格：17 欄定義 → 來源邏輯 → 邊界案例 → 增量更新機制  
+[→ 閱讀全文]({{ site.baseurl }}/specs/Data-Spec-銷售報表-脫敏版/)
 
 ---
 
