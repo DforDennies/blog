@@ -1,142 +1,130 @@
 ---
 layout: page
-title: "可以搜尋到全世界的網紅"
+title: "Feature Spec — 全球網紅搜尋"
 permalink: /specs/Feature-Spec-全球搜尋-脫敏版/
 ---
 
-# 可以搜尋到全世界的網紅
-
-> 產品：Platform K（KOL SaaS）  
-> 類型：Feature Spec  
-> 建立：2024-07-16  
-> 最後編輯：2026-02-19
+> **產品**：KOL SaaS 平台  
+> **類型**：Feature Specification  
+> **日期**：2024-07  
+> **狀態**：Shipped
 
 ---
 
-# Problem Alignment
+## Problem Alignment
 
-## Brief
+### Brief
 
-  世界各國造訪者會透過自己已知的網紅社群帳號，來測試這個平台
+世界各國的訪客會透過自己已知的網紅社群帳號來測試平台：
 
-  1. 是否至少可以找到
-  1. 且能分析該帳號
-  來判斷是否繼續用用看。如果連該活躍地區的網紅都找不到，也不會有其他試用。
+1. 能不能找到這個網紅？
+2. 能不能分析這個帳號？
 
-  這對於 country management 中 product team 想透過量化協助判斷是否進入單一市場，會是一個問題。
+如果連該地區的活躍網紅都搜不到，用戶不會繼續試用。這直接影響國際市場拓展的評估 — Product Team 需要量化判斷是否值得進入某個市場。
 
----
+### Goals
 
-## Goals & Success
+讓使用者透過 Quick Search 找到**世界上任一網紅**，即使該網紅尚未存在於平台資料庫中。
 
-- 讓使用者可以透過 quick search 找到世界上任一網紅，就算他目前不在平台資料庫內
-Should we... 
+### 影響範圍確認
 
-- [ ] 是否有要新版介紹 tutorial
-- [ ] 確認影響範圍有哪些國家 workspace 或語言
-- [ ] 確認影響範圍有哪些平台，Landing、App、Chrome Extension、Admin
-- [ ] 確認影響範圍有哪些社群平台，IG, YT, FB, TikTok, X
-- [ ] 確認是否影響到線上訂閱或線下購買
-- [ ] 是否有寫埋點與確認用字
----
-
-# Solution Alignment
-
-## Acceptance Criteria
-
-We empower features in **App / Landing / Admin / Chrome.** If you find something should also be in another place, please remind the PM for a better delivery quality. 
-
-## Quick Search 的調整
-
-## 一般搜尋結果的調整
-
-更新回來要有哪些數據與資料
-
-<details><summary>請參考以下，和 Chrome extension 以及搜尋完一樣（自動建立收到回報的未建立網紅）</summary>
-
-  （詳見內部文件）
-
-</details>
-
-
+| 維度 | 範圍 |
+|------|------|
+| 產品介面 | App、Landing Page、Admin、Chrome Extension |
+| 社群平台 | Instagram、YouTube、Facebook、TikTok、X |
+| 商業影響 | 不影響訂閱/購買流程 |
 
 ---
 
-## Flow / Wireframe
+## Solution Alignment
 
-[Wireframe: Global Influencer Retrieval]
+### Acceptance Criteria
 
----
+功能部署於 **App / Landing / Admin / Chrome Extension** 四個入口。
 
-## Mockup / Prototype
+**Quick Search 調整**：
+- 輸入網紅名稱或帳號時，即時查詢外部資料源
+- 若平台無此網紅，從第三方 API 即時取得基本資料並回傳
+- 搜尋結果標示「新網紅」標記，區分已建檔 vs 即時查詢
 
-[Mockup]
+**搜尋結果頁調整**：
+- 即時取得的新網紅顯示可用數據（粉絲數、簡介、近期內容）
+- 提供「更新完通知我」按鈕，用戶可訂閱完整數據更新通知
 
----
+### Flow
 
-## Tracking
-
-- 搜尋到 KOL 時，影響事件 `**Quick Search for KOL**`
-  - 影響既有屬性
-    - **kolResult : 這是 kolId 的 Array**
-  - 新增屬性
-    - kolNames : 搜尋到的 kol 名稱，Array
-    - isNewToPlatforms : Array, 內容為布林，這如果是沒資料新 KOL 傳 True，不是的話傳 False ( 之後有資料就會是 False )
-    - dataSources : Array，內容為 String，記錄資料從哪來，KOL 有資料後這值會變 DC
-
-
-- 點擊 KOL 時，影響事件 `**Choose Search Result**`
-  - 影響既有屬性
-    - kolId : 新的 KOL 不傳
-    - kolDcId : 新的 KOL 不傳
-  - 新增屬性
-    - kolName : 搜尋到的 kol 名稱，String
-    - isNewToPlatform : 布林，這如果是沒資料新 KOL 傳 True，不是的話傳 False ( 之後有資料就會是 False )
-    - dataSource : String，記錄資料從哪來
-
-
-- 進入 KD 頁時，影響事件 `**Visit KOL Detail**`
-  - 只傳這些屬性就好
-    - path
-    - from
-    - isDefault
-    - keyword
-    - kolName
-    - kolCountry
-  - 新增屬性
-    - isNewToPlatform : 布林，這如果是沒資料新 KOL 傳 True，不是的話傳 False ( 之後有資料就會是 False )
-    - dataSource : String，記錄資料從哪來
+<div class="mermaid">
+graph TD
+    A[用戶輸入搜尋] --> B{平台資料庫<br/>有此網紅？}
+    B -->|有| C[顯示完整 KOL 資料]
+    B -->|沒有| D[查詢第三方 API]
+    D --> E{API 有資料？}
+    E -->|有| F[顯示基本資料<br/>標記「新網紅」]
+    E -->|沒有| G[顯示無結果]
+    F --> H[用戶點擊進入 KD 頁]
+    F --> I[用戶點擊<br/>「更新完通知我」]
+    I --> J[系統排程完整爬取]
+    J --> K[爬取完成<br/>發送通知]
     
+    style B fill:#fff3e0,stroke:#e65100
+    style F fill:#e3f2fd,stroke:#1565c0
+    style I fill:#e8f5e9,stroke:#2e7d32
+</div>
 
-- 點擊更新完通知我，新增事件記錄
-  - 事件名稱 : `**Subscribe KOL Data Update Notification**`
-    - 屬性（詳見 Amplitude 埋點定義）
+---
 
+## Tracking（埋點設計）
 
-### Event Automation Test
+### Event 1：Quick Search for KOL
 
-- `**Quick Search for KOL**`
-  - b4aaa5b5967e4728cd0be47c7e78c6f8bfb99d15
-- `**Choose Search Result**`
-  - 3198693101ce3d897b77bcdaa82c77b9744a5fa6
-- `**Visit KOL Detail**`
-  - 283c36b5024be73e4e426fc3afc216048e1722a4
-- `**Subscribe KOL Data Update Notification**`
-  - TBD (網紅被觸發事件後，無法重複使用，故先暫停開發)
+> 觸發時機：用戶執行搜尋，取得結果
+
+| 屬性 | 類型 | 說明 |
+|------|------|------|
+| `kolResult` | Array\<ID\> | 搜尋結果的 KOL ID 列表（既有屬性） |
+| `kolNames` | Array\<String\> | 搜尋到的 KOL 名稱 |
+| `isNewToPlatforms` | Array\<Boolean\> | 是否為平台新網紅（`true` = 即時查詢，`false` = 已建檔） |
+| `dataSources` | Array\<String\> | 資料來源標記（已建檔者為 `DC`） |
+
+### Event 2：Choose Search Result
+
+> 觸發時機：用戶點擊某個搜尋結果
+
+| 屬性 | 類型 | 說明 |
+|------|------|------|
+| `kolId` | String | KOL ID（新網紅不傳） |
+| `kolDcId` | String | DC ID（新網紅不傳） |
+| `kolName` | String | KOL 名稱 |
+| `isNewToPlatform` | Boolean | 是否為新網紅 |
+| `dataSource` | String | 資料來源 |
+
+### Event 3：Visit KOL Detail
+
+> 觸發時機：用戶進入 KOL 詳細頁
+
+| 屬性 | 類型 | 說明 |
+|------|------|------|
+| `path` | String | 頁面路徑 |
+| `from` | String | 來源頁面 |
+| `kolName` | String | KOL 名稱 |
+| `kolCountry` | String | KOL 國家 |
+| `isNewToPlatform` | Boolean | 是否為新網紅 |
+| `dataSource` | String | 資料來源 |
+
+### Event 4：Subscribe KOL Data Update Notification
+
+> 觸發時機：用戶點擊「更新完通知我」按鈕  
+> 狀態：因觸發條件限制，暫停開發
 
 ---
 
 ## 分析目標
 
-1. 有多少人點擊按鈕
-1. 進入 KD 新舊 KOL 數量差異
-1. 點按鈕的轉化率，還可以切不同資料源
-1. 點按鈕的主要資料來源
+1. 有多少用戶點擊「更新完通知我」？
+2. 進入 KD 頁的新舊 KOL 數量差異
+3. 點擊按鈕的轉化率，可依資料來源切分
+4. 主要觸發的資料來源分佈
 
 ---
 
-# Reference
-
-- 競品費用評估文件
-- 內部討論文件
----
+*Dennies Hong — AI/ML Product Manager / 寫技術、寫產品、寫真實經歷。*
