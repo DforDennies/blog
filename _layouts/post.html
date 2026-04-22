@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+<div class="container">
+  <div class="article-header">
+    <h1>{{ page.title }}</h1>
+    <div class="article-meta">
+      <span>Dennies Hong</span>
+      <span>·</span>
+      <span>{{ page.content | number_of_words | divided_by: 300 | plus: 1 }} min read</span>
+      <span>·</span>
+      <span>{{ page.categories | first }}</span>
+    </div>
+  </div>
+
+  <article class="article-body">
+    {{ content }}
+  </article>
+</div>

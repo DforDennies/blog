@@ -2,7 +2,7 @@ title: Dennies Hong — AI/ML Product Manager
 description: 寫技術、寫產品、寫真實經歷。
 url: "https://dfordennies.github.io"
 baseurl: "/blog"
-theme: minima
+# theme: minima  # using custom layouts
 author:
   name: Dennies Hong
   email: dennies1216@gmail.com
