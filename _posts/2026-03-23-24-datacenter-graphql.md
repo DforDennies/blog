@@ -44,7 +44,6 @@ Request → Tiam(Auth?) → Ganesh(AB?) → Akashic(1st ES Search)
 
 ## GraphQL Schema 設計
 
-<!-- 📸 建議截圖：GraphQL Schema 拆分結構——common/kol/post/analyze.graphqls 的檔案結構和主要 Query 列表（無需脫敏） -->
 
 Go 語言，用 gqlgen v0.17.44 做 code-first 的 GraphQL 框架。Schema 按功能拆分成 `common.graphqls`、`kol.graphqls`、`post.graphqls`、`analyze.graphqls`，Release 5.5 後重構的結果。
 
@@ -56,7 +55,6 @@ Reduce I/O 策略是從 request/response field 決定要做的事情。如果 ko
 
 ## N+1 問題：從暴力查詢到 DataLoader
 
-<!-- 📸 建議截圖：N+1 問題解法對比圖——Step 1 field resolver 改善 + Step 2 DataLoader 批次化的兩階段優化（無需脫敏） -->
 
 KOL Search 回傳 N 個 KOL 時，原本每個 KOL 都會各自查詢 `similar_kol` 和 `related_kol`，典型的 N+1 問題。`customized_tag` 的 mapping 查詢也一樣 — MultiplePostSearch 會呼叫 3 次 `TiamUserService/CustomizedTagMappingGet`，KolSearch 的 PostConnection 更糟。
 
@@ -70,7 +68,6 @@ customized_tag N+1 的解法不同 — 把 customized_tag 邏輯移到 akashic u
 
 ## ES Index 與 Country Isolation
 
-<!-- 📸 建議截圖：ES Index 結構圖——KOL Index(tw+global) / Post Index(按季度+按國家) / Text Action Index 的 Alias 和 Routing 設計（隱藏具體 ES URL） -->
 
 Akashic 管理的 ES Index 分三類：
 

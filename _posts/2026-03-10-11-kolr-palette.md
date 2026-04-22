@@ -35,7 +35,6 @@ KOL Radar 本體是搜尋工具——用戶設篩選條件、看結果、解鎖 
 
 先花了兩個月探索框架。評估了 Dify 和 Oneness-AI，最後決定自建 Multi-Agent Core。
 
-<!-- 📸 建議截圖：Phase 1 架構設計時期的框架評估表或技術選型文件——Dify vs Oneness-AI vs 自建的比較（脫敏） -->
 
 不直接用開源框架，主要是兩個原因：
 1. 我們需要深度整合 KOL Radar 的資料查詢（走 MCP 協議），現有框架的工具整合不夠靈活
@@ -76,7 +75,6 @@ Agent 沒有記憶是最被用戶抱怨的問題。Phase 4 做了兩輪 Memory P
 
 同期做了 MCP 協議遷移：從 SSE 升級到 Streamable HTTP。Supervisor 模型也從 GPT-4.1 換成 Claude Sonnet 4.5。
 
-<!-- 📸 建議截圖：Memory 系統架構圖——Mem0 + a-mem + ES 向量搜尋 + Neptune 知識圖譜的整合關係（無需脫敏，為架構設計） -->
 
 ### Phase 5：模型現代化（2026-01+）
 
@@ -88,7 +86,6 @@ Agent 沒有記憶是最被用戶抱怨的問題。Phase 4 做了兩輪 Memory P
 
 | 層級 | 技術 |
 |------|------|
-<!-- 📸 建議截圖：LangFuse 的 tracing 畫面——多代理呼叫的追蹤視圖，展示 Supervisor → Worker 的調度鏈（脫敏對話內容） -->
 
 | LLM Provider | Azure OpenAI (GPT-4.1, o3-mini)、Anthropic (Claude Sonnet 4.5, Haiku 4.5) |
 | Agent Framework | 自建 Multi-Agent Core |
@@ -115,7 +112,6 @@ Agent 沒有記憶是最被用戶抱怨的問題。Phase 4 做了兩輪 Memory P
 
 **LLM-as-a-Judge** 用兩種模式：Direct Evaluation（給分）和 Pairwise Comparison（比較兩組輸出）。分數轉換支援 identity、linear、binary 三種方式。
 
-<!-- 📸 建議截圖：Experiment Manager 的 report 輸出——quality / latency / tool_usage 維度的比較表格或圖表（脫敏模型名稱可保留） -->
 
 **Dueling Bandits** 是更進階的模型比較機制。透過人類標記者做 pairwise comparison，用 Thompson Sampling 自動平衡 exploration 和 exploitation：
 
