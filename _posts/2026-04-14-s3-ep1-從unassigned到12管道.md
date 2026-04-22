@@ -7,13 +7,6 @@ tags: [SaaS, Data Analysis, Product Management, Business Intelligence]
 author: Dennies Hong
 ---
 
----
-title: "前九個月，100% Unassigned"
-series: "Kolr GA4 視角"
-episode: 1
----
-
-
 2024 年 1 月，Kolr 的 GA4 報表上只有一個數字：87,771 sessions。管道欄位：Unassigned。佔比：100%。
 
 沒有人知道這八萬七千個訪客是從搜尋引擎來的、從廣告來的、還是從天上掉下來的。行銷團隊每個月花錢辦活動、投廣告、寫部落格，但連「哪個管道有效」這個最基本的問題都回答不了。每個月開會，行銷報「本月流量上升 15%」，然後呢？上升的是哪些人？從哪來的？進來之後做了什麼？全部都是問號。

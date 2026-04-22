@@ -7,13 +7,6 @@ tags: [SaaS, Data Analysis, Product Management, Business Intelligence]
 author: Dennies Hong
 ---
 
----
-title: "我偷偷搭了三套數據系統"
-series: "Kolr 數據驅動決策史"
-episode: 1
----
-
-
 2024 年初，我手上沒有任何一份可以信任的報表。
 
 銷售數字在 Google Sheet 裡，每個業務填的格式不一樣。流量數據在 GA4 裡，但 100% 的 sessions 都歸為「Unassigned」— 沒有人知道 87,000 個訪客是從哪裡來的。用戶行為數據在 Amplitude 裡，但沒有人打開過它。
