@@ -28,6 +28,7 @@ permalink: /projects/
     <h3>深度研究報告：五大發現</h3>
     <p>8 章節顧問級分析 — 獲客停擺 / 年約零流失 / M3 死亡門檻 / 業務集中 / 93 家可挽回。6 個 AI Agent 平行分析產出。</p>
     <div class="project-tech">Python · 6 AI Agents · Plotly · GitHub Pages</div>
+    <img src="{{ site.baseurl }}/assets/deep-report.png" alt="Deep Research Report 截圖" class="project-screenshot">
   </div>
 
   <div class="project-card">
