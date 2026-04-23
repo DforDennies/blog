@@ -255,69 +255,30 @@ ORDER BY om.created_at DESC
 
 目的：一次性拉取 2024/01/01 起所有交易，建立基線資料。
 
-```
-                    冷啟動流程
-                    ════════
+<div class="mermaid">
+graph TD
+    A["Step 1: BQ Extract"] --> B["Step 2: Admin Panel"]
+    B --> C["Step 3: Amplitude"]
+    C --> D["Step 4: Transform & Merge"]
+    D --> E["Step 5: Load"]
 
-  ┌─── Step 1: BQ Extract ───────────────────────────┐
-  │                                                   │
-  │  1a. 線上交易（~290 筆）                            │
-  │      SELECT FROM billings                         │
-  │      WHERE checkout_at >= '2024-01-01'            │
-  │        AND status = 'paid'                        │
-  │      JOIN plans, workspaces, workspace_auths,     │
-  │           payment_transactions                    │
-  │      → raw/online_billings.json                   │
-  │                                                   │
-  │  1b. 線下交易（~651 筆）                            │
-  │      SELECT FROM operation_memos                  │
-  │      WHERE created_at >= '2024-01-01'             │
-  │        AND reason = '購買方案'                      │
-  │        AND operation = '開通購買權限'                │
-  │      JOIN admins, workspaces, workspace_auths     │
-  │      → raw/offline_memos.json                     │
-  │                                                   │
-  │  記錄 watermark:                                   │
-  │    max_billing_id = MAX(billings.id)              │
-  │    max_memo_id = MAX(operation_memos.id)           │
-  │    → state/watermark.json                          │
-  └───────────────────────────────────────────────────┘
-                         │
-  ┌─── Step 2: Admin Panel ──────────────────────────┐
-  │                                                   │
-  │  讀取 admin workspace 資料                          │
-  │  （如超過 7 天未更新 → 觸發重爬）                     │
-  │  過濾出 Step 1 涉及的 workspace_id                  │
-  │  → raw/admin_enrichment.json                      │
-  └───────────────────────────────────────────────────┘
-                         │
-  ┌─── Step 3: Amplitude ────────────────────────────┐
-  │                                                   │
-  │  API 拉最近 4 週 segmentation                      │
-  │  group_by: workspaceId                            │
-  │  events: 搜尋KOL, 解鎖KOL, 收藏KOL, Any Active    │
-  │  過濾出 Step 1 涉及的 workspace_id                  │
-  │  → raw/amplitude_metrics.json                     │
-  └───────────────────────────────────────────────────┘
-                         │
-  ┌─── Step 4: Transform & Merge ────────────────────┐
-  │                                                   │
-  │  UNION 線上 + 線下                                  │
-  │  ├── 方案/版本名稱轉換                               │
-  │  ├── 產業 EN→中文 mapping                           │
-  │  ├── 線下金額反推未稅                                │
-  │  ├── 發票狀態轉換                                   │
-  │  ├── 排除 is_test / 內部帳號                        │
-  │  LEFT JOIN admin (by workspace_id)                │
-  │  LEFT JOIN amplitude (by workspace_id)            │
-  │  → output/sales_report.csv                        │
-  │  → output/sales_report.json                       │
-  └───────────────────────────────────────────────────┘
-                         │
-  ┌─── Step 5: Load ─────────────────────────────────┐
-  │  推到 Notion / 輸出 Google Sheet / 保留 CSV         │
-  └───────────────────────────────────────────────────┘
-```
+    A --- A1["1a. 線上交易 ~290 筆<br/>billings WHERE status=paid<br/>→ raw/online_billings.json"]
+    A --- A2["1b. 線下交易 ~651 筆<br/>operation_memos WHERE reason=購買方案<br/>→ raw/offline_memos.json"]
+
+    B --- B1["讀取 admin workspace 資料<br/>超過 7 天未更新 → 觸發重爬<br/>→ raw/admin_enrichment.json"]
+
+    C --- C1["API 拉最近 4 週 segmentation<br/>搜尋/解鎖/收藏 KOL + Any Active<br/>→ raw/amplitude_metrics.json"]
+
+    D --- D1["UNION 線上+線下<br/>方案名稱轉換 · 產業 mapping<br/>線下金額反推未稅 · 排除測試帳號<br/>LEFT JOIN admin + amplitude"]
+
+    E --- E1["推到 Notion / Google Sheet / CSV"]
+
+    style A fill:#e3f2fd,stroke:#1565c0
+    style B fill:#fff3e0,stroke:#e65100
+    style C fill:#f3e5f5,stroke:#7b1fa2
+    style D fill:#e8f5e9,stroke:#2e7d32
+    style E fill:#fce4ec,stroke:#c62828
+</div>
 
 **冷啟動產出：**
 - `raw/` — 原始拉取資料（可重建）
@@ -328,76 +289,33 @@ ORDER BY om.created_at DESC
 
 目的：每天只拉新增的交易，append 到現有報表。
 
-```
-                    每日增量流程
-                    ════════════
+<div class="mermaid">
+graph TD
+    S1["Step 1: 讀取 watermark"] --> S2["Step 2: BQ 增量查詢"]
+    S2 --> S3["Step 3: Admin 增量"]
+    S3 --> S4["Step 4: Amplitude 刷新"]
+    S4 --> S5["Step 5: Merge"]
+    S5 --> S6["Step 6: Load"]
 
-  ┌─── Step 1: 讀取 watermark ───────────────────────┐
-  │  讀 state/watermark.json                          │
-  │  {                                                │
-  │    "last_billing_id": 1060,                       │
-  │    "last_memo_id": 5588,                          │
-  │    "last_run": "2026-03-11T00:00:00",             │
-  │    "total_rows": 941                              │
-  │  }                                                │
-  └───────────────────────────────────────────────────┘
-                         │
-  ┌─── Step 2: BQ 增量查詢 ──────────────────────────┐
-  │                                                   │
-  │  2a. 新線上交易                                     │
-  │      SELECT FROM billings                         │
-  │      WHERE id > {last_billing_id}                 │
-  │        AND status = 'paid'                        │
-  │      → new_online[]                               │
-  │                                                   │
-  │  2b. 新線下交易                                     │
-  │      SELECT FROM operation_memos                  │
-  │      WHERE id > {last_memo_id}                    │
-  │        AND reason = '購買方案'                      │
-  │        AND operation = '開通購買權限'                │
-  │      → new_offline[]                              │
-  │                                                   │
-  │  2c. 更新中的欄位（發票狀態/到期日可能變動）            │
-  │      SELECT FROM payment_transactions             │
-  │      WHERE updated_at > {last_run}                │
-  │        AND invoice_status IN                      │
-  │            ('is_invoiced','not_invoiced')          │
-  │      → updated_invoices[]                         │
-  │                                                   │
-  │  if new_online + new_offline == 0                 │
-  │     AND updated_invoices == 0:                    │
-  │     → 跳過，無新資料                                │
-  └───────────────────────────────────────────────────┘
-                         │
-  ┌─── Step 3: Admin 增量 ───────────────────────────┐
-  │                                                   │
-  │  只查新 workspace_id 的 admin 資料                   │
-  │  方式 A: 搜尋 admin 面板                             │
-  │  方式 B: 讀現有 json，缺的才補爬                      │
-  │  更新 admin 資料快取                                 │
-  └───────────────────────────────────────────────────┘
-                         │
-  ┌─── Step 4: Amplitude 刷新 ───────────────────────┐
-  │                                                   │
-  │  每次都拉最新 4 週資料（覆蓋式更新）                   │
-  │  Amplitude 本身是 rolling window，不需增量            │
-  └───────────────────────────────────────────────────┘
-                         │
-  ┌─── Step 5: Merge ────────────────────────────────┐
-  │                                                   │
-  │  讀取現有 sales_report.json                        │
-  │  ├── APPEND 新交易（去重 by billing_id/memo_id）     │
-  │  ├── UPDATE 發票狀態變動的既有列                      │
-  │  ├── UPDATE Amplitude 指標（全部覆蓋最新 4 週）       │
-  │  ├── UPDATE Admin 資料（有變動的 workspace）          │
-  │  寫回 sales_report.csv + .json                    │
-  │  更新 watermark.json                               │
-  └───────────────────────────────────────────────────┘
-                         │
-  ┌─── Step 6: Load ─────────────────────────────────┐
-  │  推到 Notion / Google Sheet（僅更新差異列）           │
-  └───────────────────────────────────────────────────┘
-```
+    S1 --- S1a["讀 watermark.json<br/>last_billing_id / last_memo_id<br/>last_run / total_rows"]
+
+    S2 --- S2a["2a. 新線上交易 id > watermark<br/>2b. 新線下交易 id > watermark<br/>2c. 發票狀態更新 updated_at > last_run<br/>無新資料 → 跳過"]
+
+    S3 --- S3a["只查新 workspace_id 的 admin<br/>讀現有 cache，缺的才補爬"]
+
+    S4 --- S4a["拉最新 4 週資料<br/>rolling window 覆蓋式更新"]
+
+    S5 --- S5a["APPEND 新交易（去重）<br/>UPDATE 發票 / Amplitude / Admin<br/>寫回 csv + json + watermark"]
+
+    S6 --- S6a["推到 Notion / Google Sheet<br/>僅更新差異列"]
+
+    style S1 fill:#e3f2fd,stroke:#1565c0
+    style S2 fill:#e3f2fd,stroke:#1565c0
+    style S3 fill:#fff3e0,stroke:#e65100
+    style S4 fill:#f3e5f5,stroke:#7b1fa2
+    style S5 fill:#e8f5e9,stroke:#2e7d32
+    style S6 fill:#fce4ec,stroke:#c62828
+</div>
 
 ### F3. 增量更新的特殊處理
 
