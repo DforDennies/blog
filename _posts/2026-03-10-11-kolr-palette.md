@@ -36,6 +36,25 @@ KOL Radar 本體是搜尋工具——用戶設篩選條件、看結果、解鎖 
 先花了兩個月探索框架。評估了 Dify 和 Oneness-AI，最後決定自建 Multi-Agent Core。
 
 
+<div class="mermaid">
+graph TD
+    P1["Phase 1<br/>架構設計<br/>2025-01~03"]:::p1 --> P2["Phase 2<br/>多代理擴展<br/>2025-04~06"]:::p2
+    P2 --> P3["Phase 3<br/>功能深化<br/>2025-07~09"]:::p3
+    P3 --> P4["Phase 4<br/>記憶與協議遷移<br/>2025-10~12"]:::p4
+    P4 --> P5["Phase 5<br/>模型現代化<br/>2026-01+"]:::p5
+    P2 -.- F2["PPT Agent v1<br/>4種協調模式"]:::feat
+    P3 -.- F3["Artifacts<br/>Deep Research<br/>Dynamic MCP"]:::feat
+    P4 -.- F4["Mem0 記憶<br/>MCP → Streamable HTTP"]:::feat
+    style P1 fill:#e74c3c,stroke:#c0392b,color:#fff
+    style P2 fill:#f39c12,stroke:#e67e22,color:#fff
+    style P3 fill:#3498db,stroke:#2980b9,color:#fff
+    style P4 fill:#9b59b6,stroke:#8e44ad,color:#fff
+    style P5 fill:#2ecc71,stroke:#27ae60,color:#fff
+    style F2 fill:#fdebd0,stroke:#f39c12
+    style F3 fill:#d6eaf8,stroke:#3498db
+    style F4 fill:#e8daef,stroke:#9b59b6
+</div>
+
 不直接用開源框架，主要是兩個原因：
 1. 我們需要深度整合 KOL Radar 的資料查詢（走 MCP 協議），現有框架的工具整合不夠靈活
 2. Agent 的對話流程和 session 管理需要跟我們自己的用戶系統打通
@@ -108,6 +127,22 @@ Agent 沒有記憶是最被用戶抱怨的問題。Phase 4 做了兩輪 Memory P
 ## 評估系統：怎麼知道 Agent 變好了
 
 這是我認為 40925 做得最紮實的部分。
+
+<div class="mermaid">
+graph LR
+    INPUT["Agent 輸出"]:::input --> JUDGE["LLM-as-a-Judge"]:::judge
+    INPUT --> DUEL["Dueling Bandits<br/>Thompson Sampling"]:::duel
+    JUDGE --> SCORE["品質評分"]:::score
+    DUEL --> RANK["模型排名"]:::rank
+    SCORE --> REPORT["Experiment Report<br/>品質/延遲/工具使用"]:::report
+    RANK --> REPORT
+    style INPUT fill:#f39c12,stroke:#e67e22,color:#fff
+    style JUDGE fill:#e74c3c,stroke:#c0392b,color:#fff
+    style DUEL fill:#3498db,stroke:#2980b9,color:#fff
+    style SCORE fill:#9b59b6,stroke:#8e44ad,color:#fff
+    style RANK fill:#1abc9c,stroke:#16a085,color:#fff
+    style REPORT fill:#2ecc71,stroke:#27ae60,color:#fff
+</div>
 
 **LLM-as-a-Judge** 用兩種模式：Direct Evaluation（給分）和 Pairwise Comparison（比較兩組輸出）。分數轉換支援 identity、linear、binary 三種方式。
 

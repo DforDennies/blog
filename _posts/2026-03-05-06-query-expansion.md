@@ -18,6 +18,25 @@ author: Dennies Hong
 Query expansion 不是把搜尋詞翻譯成同義詞這麼簡單。我們設計了三種擴展，分別對應三種搜尋技術：
 
 
+<div class="mermaid">
+graph LR
+    Q["原始查詢"]:::query --> LEX["lex<br/>關鍵字變體"]:::lex
+    Q --> VEC["vec<br/>語意重述"]:::vec
+    Q --> HYDE["hyde<br/>假文件生成"]:::hyde
+    LEX --> BM25["BM25<br/>全文檢索"]:::search
+    VEC --> VS["向量搜尋"]:::search
+    HYDE --> VS
+    BM25 --> RES["合併搜尋結果"]:::result
+    VS --> RES
+    style Q fill:#2c3e50,stroke:#1a252f,color:#fff
+    style LEX fill:#e74c3c,stroke:#c0392b,color:#fff
+    style VEC fill:#3498db,stroke:#2980b9,color:#fff
+    style HYDE fill:#9b59b6,stroke:#8e44ad,color:#fff
+    style BM25 fill:#f39c12,stroke:#e67e22,color:#fff
+    style VS fill:#1abc9c,stroke:#16a085,color:#fff
+    style RES fill:#2ecc71,stroke:#27ae60,color:#fff
+</div>
+
 **lex（Lexical）**：給 BM25 全文檢索用。把 query 擴展成一組關鍵字變體，包含中英文同義詞、縮寫、業界術語。
 
 ```
@@ -48,6 +67,19 @@ hyde: 【YouTube創作者】台灣美妝KOL，粉絲數85萬，
 
 ## Pipeline：五步走通
 
+
+<div class="mermaid">
+graph TD
+    S1["Step 1: GPT-4.1-mini<br/>生成訓練資料"]:::s1 --> S2["Step 2: 品質驗證<br/>5 維度自動檢查"]:::s2
+    S2 --> S3["Step 3: 格式轉換<br/>Chat Format"]:::s3
+    S3 --> S4["Step 4: LoRA 微調<br/>Qwen3-4B"]:::s4
+    S4 --> S5["Step 5: 測試推理<br/>Merged 模型部署"]:::s5
+    style S1 fill:#e74c3c,stroke:#c0392b,color:#fff
+    style S2 fill:#f39c12,stroke:#e67e22,color:#fff
+    style S3 fill:#3498db,stroke:#2980b9,color:#fff
+    style S4 fill:#9b59b6,stroke:#8e44ad,color:#fff
+    style S5 fill:#2ecc71,stroke:#27ae60,color:#fff
+</div>
 
 整個 fine-tuning pipeline 分五步：
 

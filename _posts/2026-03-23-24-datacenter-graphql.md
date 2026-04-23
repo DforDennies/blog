@@ -17,6 +17,31 @@ DataCenter 的設計目標很明確：前端只看到 GraphQL API，後端只看
 
 整個 DataCenter 分三層：
 
+<div class="mermaid">
+graph TD
+    FE["Frontend<br/>(Gaia SDK)"]
+    DH["Datahub API<br/>GraphQL :10102"]
+    TI["Tiam<br/>Auth"]
+    GA["Ganesh<br/>AB Testing"]
+    AK["Akashic<br/>gRPC MicroService"]
+    ES[("Elasticsearch")]
+    CR["Crawler / ETL"]
+
+    FE -->|GraphQL over HTTP| DH
+    DH --> TI
+    DH --> GA
+    DH -->|gRPC| AK
+    AK --> ES
+    CR -->|寫入| AK
+
+    style FE fill:#4a90d9,color:#fff
+    style DH fill:#e8a838,color:#fff
+    style AK fill:#e05d6f,color:#fff
+    style ES fill:#5bbf72,color:#fff
+    style TI fill:#9b59b6,color:#fff
+    style GA fill:#9b59b6,color:#fff
+</div>
+
 ```
 Frontend (Gaia SDK) → GraphQL over HTTP
     ↓
@@ -55,6 +80,31 @@ Reduce I/O 策略是從 request/response field 決定要做的事情。如果 ko
 
 ## N+1 問題：從暴力查詢到 DataLoader
 
+<div class="mermaid">
+graph LR
+    subgraph 舊做法 N+1
+        direction TB
+        Q1["KOL Search<br/>回傳 N 筆"]
+        S1["similar_kol 查詢 x N"]
+        R1["related_kol 查詢 x N"]
+        Q1 --> S1
+        Q1 --> R1
+    end
+
+    subgraph 新做法 DataLoader
+        direction TB
+        Q2["KOL Search<br/>回傳 N 筆"]
+        FL["Field Resolver<br/>延遲觸發"]
+        DL["DataLoader<br/>批次查詢 x 1"]
+        Q2 --> FL --> DL
+    end
+
+    style Q1 fill:#e05d6f,color:#fff
+    style Q2 fill:#5bbf72,color:#fff
+    style DL fill:#4a90d9,color:#fff
+    style S1 fill:#e8a838,color:#fff
+    style R1 fill:#e8a838,color:#fff
+</div>
 
 KOL Search 回傳 N 個 KOL 時，原本每個 KOL 都會各自查詢 `similar_kol` 和 `related_kol`，典型的 N+1 問題。`customized_tag` 的 mapping 查詢也一樣 — MultiplePostSearch 會呼叫 3 次 `TiamUserService/CustomizedTagMappingGet`，KolSearch 的 PostConnection 更糟。
 

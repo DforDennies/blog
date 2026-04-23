@@ -40,6 +40,31 @@ Sentinel Mode 的優勢：
 
 最終架構是 3 個 Redis nodes（1 Master + 2 Replica）+ 3 個 Sentinel（quorum = 2），部署在 K8s namespace `redis-sentinel`。
 
+<div class="mermaid">
+graph TD
+    S1["Sentinel 1"]
+    S2["Sentinel 2"]
+    S3["Sentinel 3"]
+    M["Redis Master<br/>node-0"]
+    R1["Redis Replica<br/>node-1"]
+    R2["Redis Replica<br/>node-2"]
+
+    S1 ---|監控| M
+    S2 ---|監控| M
+    S3 ---|監控| M
+    M -->|同步| R1
+    M -->|同步| R2
+    S1 ---|quorum=2| S2
+    S2 ---|quorum=2| S3
+
+    style M fill:#e05d6f,color:#fff
+    style R1 fill:#4a90d9,color:#fff
+    style R2 fill:#4a90d9,color:#fff
+    style S1 fill:#e8a838,color:#fff
+    style S2 fill:#e8a838,color:#fff
+    style S3 fill:#e8a838,color:#fff
+</div>
+
 ---
 
 ## POC：核心驗證「Failover 期間 Job 會不會掉」
@@ -62,6 +87,21 @@ redis: sentinel: new master="mymaster" addr="redis-sentinel-node-2....:6379"
 ---
 
 ## Go Live：三階段切換策略
+
+<div class="mermaid">
+graph LR
+    ST1["Stage 1<br/>資料搬移<br/>Cookie/Snowflake ID"]
+    ST2["Stage 2<br/>IaC 設定<br/>重啟非 queue 服務"]
+    ST3["Stage 3<br/>等 queue 清空<br/>切換 crawler"]
+    DONE["上線完成"]
+
+    ST1 --> ST2 --> ST3 --> DONE
+
+    style ST1 fill:#4a90d9,color:#fff
+    style ST2 fill:#e8a838,color:#fff
+    style ST3 fill:#e05d6f,color:#fff
+    style DONE fill:#5bbf72,color:#fff
+</div>
 
 2024-04-30 正式切換，隨 Datahub 5.9 Release 一起發佈。問了 SRE 排程的邏輯 — 選時間是有學問的：避開雙週爬蟲排程、避開正常上版時間、選在下午執行，目的是把同時踩雷的機率降到最低。
 

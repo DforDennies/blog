@@ -30,6 +30,23 @@ python pipeline.py export-benchmark  # benchmark.json
 ```
 
 
+<div class="mermaid">
+graph TD
+    A[18,724 .json.gz<br/>144M 事件] -->|ingest| B[SQLite<br/>WAL mode, 886秒]
+    B -->|compute| C[日級/月級聚合表<br/>意圖指標快取]
+    C -->|export| D[27,913 company JSON]
+    E[CRM Google Sheet<br/>479客戶+292付款] -->|ingest-crm| B
+    C -->|export-benchmark| F[benchmark.json<br/>781天×12指標×2組]
+    D --> G[Dashboard v1<br/>2,940行 HTML]
+    G -->|遷移| H[Dashboard v3<br/>Next.js + Neon PG + Vercel]
+    style A fill:#94a3b8,color:#fff
+    style B fill:#3b82f6,color:#fff
+    style C fill:#6366f1,color:#fff
+    style D fill:#8b5cf6,color:#fff
+    style G fill:#f59e0b,color:#fff
+    style H fill:#10b981,color:#fff
+</div>
+
 增量模式靠 `processed_files` 表追蹤已處理的檔案。新數據進來只需要處理差量，不用重跑全部。`_migrate()` 函式處理 schema 變更——直接 `ALTER TABLE` 加欄位，不搞 migration 工具。
 
 ## Dashboard v1：2,940 行 HTML
@@ -72,6 +89,31 @@ v2 做到 2,940 行的時候，事情開始失控。
 
 非 CRM 平均值還要在前端反算：`(all_avg × all_ws - crm_avg × crm_ws) / (all_ws - crm_ws)`。每次日期範圍改變就重算一次，邏輯散落在各個 render 函式裡。
 
+
+<div class="mermaid">
+graph LR
+    subgraph v1-v2 單檔架構
+        HTML[2,940行 HTML]
+        CJS[Chart.js CDN]
+        JSON[data/*.json]
+    end
+    subgraph v3 現代架構
+        NJ[Next.js 16 + React 19]
+        NE[Neon PG 512MB]
+        VE[Vercel 自動部署]
+        PR[Prisma 7.6]
+        AU[NextAuth v5 OAuth]
+    end
+    HTML -->|遷移| NJ
+    JSON -->|推送| NE
+    NJ --> VE
+    NJ --> PR
+    PR --> NE
+    style HTML fill:#f59e0b,color:#fff
+    style NJ fill:#10b981,color:#fff
+    style NE fill:#3b82f6,color:#fff
+    style VE fill:#000,color:#fff
+</div>
 
 v3 遷移到 Next.js 16 + Neon PostgreSQL + Vercel。技術棧：
 - Next.js 16.2.2（App Router）+ React 19 + TypeScript strict

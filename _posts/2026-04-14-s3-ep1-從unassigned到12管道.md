@@ -45,6 +45,23 @@ author: Dennies Hong
 
 ## 12 個管道現身
 
+<div class="mermaid">
+graph LR
+    U["2024-01<br/>100% Unassigned"] -->|"9 個月建設"| M["2024-10<br/>12 管道現身"]
+    M --> OS["Organic Search<br/>48.2% / CVR 0.78%"]
+    M --> PS["Paid Search<br/>5.3% / CVR 4.48%"]
+    M --> D["Direct<br/>10.3% / CVR 2.01%"]
+    M --> R["Referral<br/>1.1% / CVR 5.61%"]
+    M --> O["其他 8 管道"]
+    style U fill:#95a5a6,stroke:#7f8c8d,color:#fff
+    style M fill:#2ecc71,stroke:#27ae60,color:#fff
+    style OS fill:#3498db,stroke:#2471a3,color:#fff
+    style PS fill:#e67e22,stroke:#ca6f1e,color:#fff
+    style D fill:#9b59b6,stroke:#7d3c98,color:#fff
+    style R fill:#1abc9c,stroke:#16a085,color:#fff
+    style O fill:#bdc3c7,stroke:#95a5a6
+</div>
+
 2024 年 10 月，GA4 的管道歸因終於完整。Unassigned 從 100% 降到背景雜訊等級。12 個管道浮出水面，每個都有自己的故事。
 
 Organic Search 是最大的管道：51,926 sessions，佔 48.2%，CVR 0.78%。將近一半的流量來自 Google 搜尋。但 0.78% 的轉換率意味著這是一個超級寬的漏斗口 — 進來的人很多，但大部分只是來看部落格文章的路人。
@@ -64,6 +81,23 @@ Cross-network 的 CVR 3.02%，在年度排名裡拿到效率冠軍 4.62%，Refer
 還有一個值得一提的現象：Google SSO 效應。建帳號的數量是「點擊註冊按鈕」的 2.5 倍。很多人不走傳統的註冊流程 — 他們直接用 Google 帳號一鍵登入，跳過了我們定義的「Clicks Register」事件。這意味著如果你只看「點註冊」這個指標來評估漏斗，你會漏掉超過一半的實際註冊。
 
 ## 漏斗的結構性發現
+
+<div class="mermaid">
+graph TD
+    S["Sessions<br/>月均 ~100K"] -->|"1.6-5.2%"| V["看到註冊頁<br/>76,411 人/年"]
+    V -->|"37%"| A["建立帳號<br/>28,383 人/年"]
+    A -->|"20→40%"| T["啟用試用<br/>3,485 人/年"]
+    T -->|"轉換"| P["付費客戶"]
+    S -.->|"95% 流失"| X1["未到註冊頁"]
+    V -.->|"63% 流失"| X2["看了沒註冊"]
+    style S fill:#3498db,stroke:#2471a3,color:#fff
+    style V fill:#f39c12,stroke:#d68910,color:#fff
+    style A fill:#e67e22,stroke:#ca6f1e,color:#fff
+    style T fill:#27ae60,stroke:#1e8449,color:#fff
+    style P fill:#2ecc71,stroke:#27ae60,color:#fff
+    style X1 fill:#e74c3c,stroke:#c0392b,color:#fff
+    style X2 fill:#e74c3c,stroke:#c0392b,color:#fff
+</div>
 
 看完管道之後，我開始往漏斗深處挖。幾個結構性的發現。
 

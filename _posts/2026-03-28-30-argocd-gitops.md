@@ -16,6 +16,40 @@ author: Dennies Hong
 先說結論：所有 ArgoCD 的 workload 集中在一個 CICD cluster（GKE `super-resilient-engine`，asia-east1）。這個 cluster 不跑業務服務，只跑基礎設施工具：ArgoCD v3.1.9、Grafana、Loki、Tempo、Mimir、Pyroscope、Traefik、cert-manager、MLflow、Langfuse、Metabase、SonarQube，加起來超過 20 個應用。
 
 
+<div class="mermaid">
+graph TD
+    CICD["CICD Cluster<br/>(super-resilient-engine)"]
+    ARGO["ArgoCD v3.1.9"]
+    GRAF["Grafana / Loki / Tempo"]
+    TOOLS["Traefik / cert-manager<br/>MLflow / Metabase / SonarQube"]
+
+    KR_S["KolRadar STG"]
+    KR_R["KolRadar RC"]
+    KR_P["KolRadar PRD"]
+    CDP_S["CDP STG"]
+    CDP_R["CDP RC"]
+    CDP_P["CDP PRD"]
+    AI["AI Datahub x3"]
+    NX["Nexus x3"]
+
+    CICD --- ARGO
+    CICD --- GRAF
+    CICD --- TOOLS
+    ARGO -->|Workload Identity| KR_S
+    ARGO --> KR_R
+    ARGO --> KR_P
+    ARGO --> CDP_S
+    ARGO --> CDP_R
+    ARGO --> CDP_P
+    ARGO --> AI
+    ARGO --> NX
+
+    style CICD fill:#e05d6f,color:#fff
+    style ARGO fill:#e8a838,color:#fff
+    style KR_P fill:#4a90d9,color:#fff
+    style CDP_P fill:#5bbf72,color:#fff
+</div>
+
 從這個 CICD cluster 出發，ArgoCD 透過 GCP Workload Identity 連線到所有遠端 cluster。每個 cluster 的 TLS CA Certificate 存在 `secrets.yaml` 裡，用 SOPS + GCP KMS 加密。GitLab 各 Group 的 Deploy Token 也存在同一份 secrets 裡，ArgoCD 靠這些 credential 去拉各團隊的 Helm repo。
 
 這個設計的好處是「Single Source of Truth」真的只有一個地方：`ikala-developer-platform` 這個 repo。壞處是，如果這個 CICD cluster 掛了，所有環境的部署能力都會暫時中斷。但因為已經部署的服務不受影響（ArgoCD 掛了只是不能同步新版本），所以風險可接受。
@@ -24,6 +58,31 @@ author: Dennies Hong
 
 cluster 多了之後，不可能所有 Application 都由 Platform Team 一個人管。我們演化出四種管理模式：
 
+<div class="mermaid">
+graph TD
+    subgraph 模式A["模式 A: Platform 統一管理"]
+        PA["Platform Team"]
+        PA --> CICD_A["CICD 基礎設施<br/>traefik/grafana/loki"]
+    end
+    subgraph 模式B["模式 B: ApplicationSet"]
+        AS["ApplicationSet 定義一次"]
+        AS --> ALL["自動部署到所有 Cluster"]
+    end
+    subgraph 模式C["模式 C: Team 自管"]
+        PT["Platform Bootstrap"]
+        PT --> TEAM["團隊自管 argocd/ 目錄"]
+    end
+    subgraph 模式D["模式 D: CDP ApplicationSet"]
+        TPL["Platform 定義 Template"]
+        TPL --> ENV["STG / RC / PRD 差異化"]
+    end
+
+    style PA fill:#e05d6f,color:#fff
+    style AS fill:#e8a838,color:#fff
+    style PT fill:#4a90d9,color:#fff
+    style TEAM fill:#5bbf72,color:#fff
+    style TPL fill:#9b59b6,color:#fff
+</div>
 
 **模式 A：Platform 統一管理。** CICD cluster 上的基礎設施工具，全部定義在 `applications-cicd.yaml`。traefik、grafana、loki、mimir 這些東西由 Platform Team 全權負責，其他團隊不碰。
 
