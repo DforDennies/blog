@@ -21,6 +21,9 @@ permalink: /projects/
     <p>處理 144M 事件、27,898 workspace，計算 8 維健康評分 + 全局 Benchmark。支援公司級鑽取、趨勢分析、風險監測。</p>
     <div class="project-tech">Next.js · Neon PostgreSQL · Prisma · Chart.js</div>
     <img src="{{ site.baseurl }}/assets/amplitude-dashboard.png" alt="Amplitude Dashboard 截圖" class="project-screenshot">
+    <div class="project-links">
+      <a href="{{ site.baseurl }}/2026/03/18/19-amplitude-dashboard/">→ 相關文章：Amplitude 儀表板架構</a>
+    </div>
   </div>
 
   <div class="project-card">
@@ -29,6 +32,9 @@ permalink: /projects/
     <p>8 章節顧問級分析 — 獲客停擺 / 年約零流失 / M3 死亡門檻 / 業務集中 / 93 家可挽回。6 個 AI Agent 平行分析產出。</p>
     <div class="project-tech">Python · 6 AI Agents · Plotly · GitHub Pages</div>
     <img src="{{ site.baseurl }}/assets/deep-report.png" alt="Deep Research Report 截圖" class="project-screenshot">
+    <div class="project-links">
+      <a href="{{ site.baseurl }}/2026/03/11/12-企業交付/">→ 相關文章：企業交付的真實教訓</a>
+    </div>
   </div>
 
   <div class="project-card">
@@ -37,6 +43,10 @@ permalink: /projects/
     <p>1,123 筆交易 → 9 Tab 報表 + GRR/NRR/MRR 自動追蹤。與業務手動報表 $0 差異，日/週/月報自動推送 Slack。</p>
     <div class="project-tech">Python · gspread · GitHub Actions CI</div>
     <img src="{{ site.baseurl }}/assets/sales-pipeline-ci.png" alt="Sales Pipeline CI 截圖" class="project-screenshot">
+    <div class="project-links">
+      <a href="{{ site.baseurl }}/2026/03/14/15-銷售報表-340config/">→ 相關文章：銷售報表 340 Config</a>
+      <a href="{{ site.baseurl }}/specs/Data-Spec-銷售報表-脫敏版/">→ Data Spec</a>
+    </div>
   </div>
 
   <div class="project-card">
@@ -53,6 +63,9 @@ permalink: /projects/
     <p>9 Key Events × 10 管道 × 5 層報告（日/週/月/季/年）+ 回溯機制。發現 Paid Social 無效，促成預算重分配。</p>
     <div class="project-tech">GA4 API · Chart.js · 健康評分模型</div>
     <img src="{{ site.baseurl }}/assets/ga4-framework.png" alt="GA4 Framework 截圖" class="project-screenshot">
+    <div class="project-links">
+      <a href="{{ site.baseurl }}/2026/03/16/17-ga4-流量歸因/">→ 相關文章：GA4 流量歸因框架</a>
+    </div>
   </div>
 
   <hr style="margin:48px 0;border:none;border-top:1px solid rgba(0,0,0,.08);">
