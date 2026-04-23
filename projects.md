@@ -20,6 +20,7 @@ permalink: /projects/
     <h3>Amplitude 互動式儀表板</h3>
     <p>處理 144M 事件、27,898 workspace，計算 8 維健康評分 + 全局 Benchmark。支援公司級鑽取、趨勢分析、風險監測。</p>
     <div class="project-tech">Next.js · Neon PostgreSQL · Prisma · Chart.js</div>
+    <img src="{{ site.baseurl }}/assets/amplitude-dashboard.png" alt="Amplitude Dashboard 截圖" class="project-screenshot">
   </div>
 
   <div class="project-card">
@@ -41,6 +42,7 @@ permalink: /projects/
     <h3>Ops Dashboard</h3>
     <p>個人指揮中心 — 整合所有 Pipeline 監控、報告歸檔、系統健康狀態於一處。</p>
     <div class="project-tech">Next.js · Vercel</div>
+    <img src="{{ site.baseurl }}/assets/ops-dashboard.png" alt="Ops Dashboard 截圖" class="project-screenshot">
   </div>
 
   <div class="project-card">
