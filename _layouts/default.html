@@ -18,10 +18,10 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Nav */
+    /* Nav - Medium style */
     nav {
       border-bottom: 1px solid rgba(0,0,0,.08);
-      padding: 12px 0;
+      padding: 14px 0;
       position: sticky;
       top: 0;
       background: rgba(255,255,255,.97);
@@ -38,18 +38,32 @@
     }
     .nav-logo {
       font-family: 'Noto Serif TC', serif;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 700;
       color: #242424;
       text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .nav-links a {
       color: #6b6b6b;
       text-decoration: none;
       font-size: 14px;
-      margin-left: 24px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: all .15s;
     }
-    .nav-links a:hover { color: #242424; }
+    .nav-links a:hover { color: #242424; background: #f6f6f6; }
+    .nav-links .nav-cta {
+      background: #1a8917;
+      color: #fff;
+      font-weight: 500;
+    }
+    .nav-links .nav-cta:hover { background: #156d12; color: #fff; }
 
     /* Container */
     .container {
@@ -63,23 +77,44 @@
       padding: 0 24px;
     }
 
-    /* Home hero */
+    /* Home hero - Medium yellow banner style */
     .hero {
-      padding: 48px 0 32px;
-      border-bottom: 1px solid rgba(0,0,0,.08);
+      padding: 56px 0 48px;
+      background: linear-gradient(180deg, #FFC017 0%, #FFF 100%);
+      margin: -1px -9999px 0;
+      padding-left: 9999px;
+      padding-right: 9999px;
+      border-bottom: 1px solid #242424;
+    }
+    .hero-inner {
+      max-width: 680px;
     }
     .hero h1 {
       font-family: 'Noto Serif TC', serif;
-      font-size: 42px;
+      font-size: 48px;
       font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 12px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+      color: #242424;
     }
     .hero p {
-      font-size: 18px;
-      color: #6b6b6b;
+      font-size: 20px;
+      color: #444;
       line-height: 1.6;
     }
+    .hero .hero-cta {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 8px 20px;
+      background: #242424;
+      color: #fff;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .hero .hero-cta:hover { background: #000; }
 
     /* Category tabs */
     .tabs {
@@ -115,7 +150,7 @@
       gap: 16px;
       align-items: flex-start;
     }
-    .post-item:hover .post-title { color: #1a8917; }
+    .post-item:hover .post-title { color: #1a8917; text-decoration: underline; }
     .post-content {
       flex: 1;
       min-width: 0;
@@ -377,7 +412,7 @@
       font-weight: 500;
       transition: background .15s;
     }
-    .btn-articles:hover { background: #242424; color: #fff; }
+    .btn-articles:hover { background: #1a8917; color: #fff; border-color: #1a8917; }
 
     @media (max-width: 680px) {
       .spec-grid { grid-template-columns: 1fr; }
@@ -425,10 +460,11 @@
     <div class="nav-inner">
       <a href="{{ site.baseurl }}/" class="nav-logo">Dennies Hong</a>
       <div class="nav-links">
-        <a href="{{ site.baseurl }}/about/">About</a>
+        <a href="{{ site.baseurl }}/">Articles</a>
         <a href="{{ site.baseurl }}/projects/">Projects</a>
+        <a href="{{ site.baseurl }}/about/">About</a>
         <a href="https://medium.com/@dennies1216" target="_blank">Medium</a>
-        <a href="https://linkedin.com/in/dennies-hong-b9b626248" target="_blank">LinkedIn</a>
+        <a href="https://linkedin.com/in/dennies-hong-b9b626248" target="_blank" class="nav-cta">LinkedIn</a>
       </div>
     </div>
   </nav>

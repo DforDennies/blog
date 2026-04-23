@@ -88,7 +88,44 @@ version 1.1 20240806
 8. 設計與建置 Azure 環境  
 9. Azure 規劃文件
 
-[圖一已移除]
+<div class="mermaid">
+flowchart TB
+    subgraph Input["Input Sources"]
+        PDF["PDF / Word Files<br/>(User Manual)"]
+        Upload["User Upload<br/>(New Product Docs)"]
+    end
+
+    subgraph PreProcess["Pre-Processing"]
+        Clean["File Cleansing<br/>& Parsing"]
+        VDB["Vector Database<br/>(RAG)"]
+        TOC["TOC Structure<br/>Recognition"]
+        Meta["Metadata<br/>Extraction"]
+    end
+
+    subgraph Model["AI Model (Two-Layer)"]
+        L1["Layer 1: Fixed Base<br/>(Product Line A~L, 60%)"]
+        L2["Layer 2: Target Model<br/>(Product Line F Specialized)"]
+    end
+
+    subgraph Output["Output"]
+        Retrieval["Retrieval &<br/>Similarity Matching"]
+        Generate["Generate New<br/>User Manual"]
+        Result["TOC + Chapter 1<br/>Overview"]
+    end
+
+    PDF --> Clean
+    Upload --> Clean
+    Clean --> VDB
+    Clean --> TOC
+    Clean --> Meta
+    VDB --> L1
+    TOC --> L1
+    Meta --> L1
+    L1 --> L2
+    L2 --> Retrieval
+    Retrieval --> Generate
+    Generate --> Result
+</div>
 
 圖一、AI User Manual 模型 的 High Level Design 初步規劃
 
@@ -98,7 +135,38 @@ version 1.1 20240806
 
    
        圖二、完整 User Manual 解決方案 WBS  
-[圖二已移除]
+
+<div class="mermaid">
+gantt
+    title AI User Manual Solution WBS (2024/09~)
+    dateFormat YYYY-MM
+    axisFormat %Y-%m
+
+    section Phase 0 - Kickoff
+    0.1 AI VOC Verification           :done, p01, 2024-09, 2w
+    0.2 Admin & Contract               :done, p02, after p01, 1w
+    0.3 Architecture Planning           :done, p03, after p02, 1w
+    0.4 SoW Finalized & Kickoff Meeting :done, p04, after p03, 1w
+
+    section Phase 1 - PoC (4.5 months)
+    1.1 Document Collection & Interviews :p11, after p04, 3w
+    1.2 Select PoC Chapters              :p12, after p11, 1w
+    1.3 AI System Architecture Design    :p13, after p12, 2w
+    1.4 AI System Implementation         :p14, after p13, 3w
+    1.5 Model Tuning & Prompt Testing    :p15, after p14, 3w
+    1.6 Model Packaging                  :p16, after p15, 1w
+    1.7 Azure Env Design & Deploy        :p17, after p15, 2w
+    1.8 PoC API Spec Design & Dev        :p18, after p16, 2w
+    1.9 PoC User Testing                 :p19, after p18, 2w
+    1.10 Documentation                   :p110, after p19, 1w
+    1.11 Delivery & Acceptance           :p111, after p110, 1w
+
+    section Phase 2 - Target Scenarios
+    2.1~2.10 UI/Model/API/Deploy/Test   :p2, after p111, 4M
+
+    section Phase 3 - Full Development
+    3.1~3.9 Full Feature Dev & Launch   :p3, after p2, 4M
+</div>
 
 2. # **功能說明** {#功能說明}
 
@@ -118,9 +186,34 @@ version 1.1 20240806
      * 為建立 RAG 檢索使用  
    * 辨識文章結構 (Structure \= TOC)  
      * 生成 User Manual 的目錄頁 TOC（Table of Contents）及 Chapter 1\. Overview (參考下圖三)  
-       [圖三已移除]
+ 
+```
+User Manual - F-2272G
+├── Acknowledgement
+├── 1. Overview
+│   ├── 1.1 Introduction
+│   ├── 1.2 Features
+│   ├── 1.3 Packing List
+│   └── 1.4 Hardware Specifications
+│       ├── 1.4.1 General
+│       └── 1.4.2 System Hardware
+├── 2. Hardware Functionality
+│   ├── 2.1 Connectors
+│   ├── 2.2 Switches & Buttons
+│   └── 2.3 LED Indicators
+├── 3. System Setup
+│   ├── 3.1 BIOS Setup
+│   └── 3.2 OS Installation
+├── 4. Software Installation
+│   └── ...
+├── 5. Maintenance
+│   └── ...
+└── Appendix
+    ├── A. Specifications
+    └── B. Warranty
+```
 
-                             圖三、User Manual 檔案目錄 (Table of Contents)
+圖三、User Manual 檔案目錄 (Table of Contents)
 
 * Metadata (spec/components)  
   * 本次專案 AI 將辨識 User Manual 架構，並透過雙方共同標註章節關鍵內容作為 Metadata  
@@ -291,7 +384,15 @@ Required Output Format:
 
    1. ##  **專案成員組織架構圖** {#專案成員組織架構圖}
 
-[組織架構圖已移除]
+**專案成員組織架構**
+
+| 層級 | 甲方 (Client B) | 乙方 (iKala) |
+|:---|:---|:---|
+| **督導委員會** | 甲方督導委員 | 乙方督導委員 |
+| **專案督導** | 甲方專案督導 | 乙方專案督導 |
+| **專案經理** | 甲方專案經理 | 乙方專案經理 |
+| **執行團隊** | 甲方業務單位：產品經理 A、B、C | 乙方架構師團隊 |
+| | 甲方資安/資訊單位（至少一位） | 乙方執行團隊 |
 
 備註：
 
@@ -353,9 +454,14 @@ Required Output Format:
       1. 採用 F1-Score 是一個結合了模型的精度和召回率的綜合指標，它能夠全面評估模型在任務中的表現。  
       2. F1-Score \= 2 \* Precision \* Recall / (Precision \+ Recall)。
 
-			[圖已移除]  
-*Precision \= True-Positive / (True-Positive \+ False-Negative)*  
-*Recall \= True-Positive / (True-Positive \+ False-Positive)*
+
+|  | **Predicted Positive** | **Predicted Negative** |
+|:---|:---:|:---:|
+| **Actual Positive** | True Positive (TP) | False Negative (FN) |
+| **Actual Negative** | False Positive (FP) | True Negative (TN) |
+
+*Precision \= True-Positive / (True-Positive \+ False-Positive)*  
+*Recall \= True-Positive / (True-Positive \+ False-Negative)*
 
 * Retrieval 指標：  
   採用 Mean Reciprocal Rank (MRR)，用於衡量搜尋引擎、問答系統等在回覆結果的準確性與效率。  
@@ -390,8 +496,21 @@ Required Output Format:
     * 驗收範圍：  
       。TOC（Table of Contents）及 Chapter 1\. Overview
 
-| [圖已移除]                             圖三、User Manual 檔案目錄 (Table of Contents) |
-| :---- |
+**驗收範圍：TOC + Chapter 1. Overview**
+
+```
+User Manual - Product Line F
+├── Table of Contents (TOC)  ← AI 生成範圍
+└── 1. Overview              ← AI 生成範圍
+    ├── 1.1 Introduction
+    ├── 1.2 Features
+    ├── 1.3 Packing List
+    └── 1.4 Hardware Specifications
+        ├── 1.4.1 General
+        └── 1.4.2 System Hardware
+```
+
+圖三、User Manual 檔案目錄 (Table of Contents)
 
 5. # **專案假設與限制**  {#專案假設與限制}
 

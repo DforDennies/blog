@@ -98,8 +98,27 @@ version 0.1  20241129
 
    4. ##  **專案內容與時程** {#專案內容與時程}
 
-      本案預計於啟動後 4 週內完成範疇：  
-      *(專案時程甘特圖 — 已移除)*
+      本案預計於啟動後 4 週內完成範疇：
+
+<div class="mermaid">
+gantt
+    title GA 自定義貼標優化專案時程
+    dateFormat  YYYY-MM-DD
+    axisFormat  %m/%d
+    section 第一階段
+    專案啟動會議 (Kickoff)          :done, t1, 2024-12-02, 1d
+    需求確認與資料盤點              :done, t2, 2024-12-02, 3d
+    section 第二階段
+    Mock Data 生成 (表1-表3)        :active, t3, 2024-12-05, 4d
+    AutoML 模型訓練與調校           :t4, 2024-12-09, 5d
+    關聯性矩陣建立 (表4-表5)        :t5, 2024-12-12, 3d
+    section 第三階段
+    Cloud Run 部署與串接            :t6, 2024-12-16, 3d
+    GA API 目標對象建立             :t7, 2024-12-18, 2d
+    section 驗收
+    整合測試與 Demo                 :t8, 2024-12-23, 2d
+    驗收與交付                      :t9, 2024-12-25, 2d
+</div>
 
 2. # **專案規劃** {#專案規劃}
 
@@ -111,21 +130,65 @@ version 0.1  20241129
 
       1. ### 建立目標對象設定檔
 
-* ### 以 Google Ads API 的 In-Market Categories (意圖標籤) 檔案隨機抽選 50 個意圖標籤建立表 1，存到 iKala BigQuery 中。   表 1\. 目標對象檔   *(表格圖示 — 已移除)*
+* ### 以 Google Ads API 的 In-Market Categories (意圖標籤) 檔案隨機抽選 50 個意圖標籤建立表 1，存到 iKala BigQuery 中。
+
+  **表 1. 目標對象檔**
+
+  | audience_id | audience_name | category_path |
+  | :---------- | :------------ | :------------ |
+  | 80001 | Banking Services | /Finance/Banking Services |
+  | 80002 | Credit Cards | /Finance/Credit Cards |
+  | 80003 | Home Loans | /Finance/Lending/Home Loans |
+  | 80004 | Personal Loans | /Finance/Lending/Personal Loans |
+  | 80005 | Foreign Exchange | /Finance/Foreign Exchange |
+  | ... | ... | ... |
+  | 80050 | Investment Services | /Finance/Investment Services |
+
+  > 共 50 筆，欄位：`audience_id` (INT64)、`audience_name` (STRING)、`category_path` (STRING)
 
   2. ### 建立 5,000 個 user\_pseudo\_id，每人隨機分配 1\~5 個目標對象，做成巢狀格式，模仿在 GA4-BigQuery 內看到的樣子，建立表 2，存到 iKala BigQuery 中。
 
-     ### 表 2\. user\_pseudo\_id 與目標對象分類表      *(表格圖示 — 已移除)*
+     **表 2. user\_pseudo\_id 與目標對象分類表**
+
+     | user_pseudo_id | audiences (巢狀 REPEATED) |
+     | :------------- | :------------------------ |
+     | 1000000001 | [{audience_id: 80002, audience_name: "Credit Cards"}, {audience_id: 80003, audience_name: "Home Loans"}] |
+     | 1000000002 | [{audience_id: 80001, audience_name: "Banking Services"}] |
+     | 1000000003 | [{audience_id: 80004, audience_name: "Personal Loans"}, {audience_id: 80005, audience_name: "Foreign Exchange"}, {audience_id: 80012, audience_name: "Insurance"}] |
+     | ... | ... |
+     | 1000005000 | [{audience_id: 80002, audience_name: "Credit Cards"}, {audience_id: 80033, audience_name: "Wealth Management"}] |
+
+     > 共 5,000 筆，每人 1~5 個目標對象 (RECORD REPEATED)，模仿 GA4 BigQuery export `user_properties` 巢狀結構
 
      3. ### 對這 5,000 個 user 每人隨機製作 3\~10 個事件，每個事件隨機 assign 一個產品線 (從信用卡、信貸、房貸、外幣中隨機挑選一個)，模仿 GA4-BQ 內看到的樣子，建立表 3，存到 iKala BigQuery 中。
 
-     ### 表 3\. user\_pseudo\_id 與 GA事件對照表         *(表格圖示 — 已移除)*
+     **表 3. user\_pseudo\_id 與 GA事件對照表**
+
+     | user_pseudo_id | event_name | event_timestamp | product_line | event_params (巢狀) |
+     | :------------- | :--------- | :-------------- | :----------- | :------------------ |
+     | 1000000001 | page_view | 1701234567890000 | 信用卡 | [{key: "page_location", value: "/credit-card/apply"}] |
+     | 1000000001 | click | 1701234590000000 | 信貸 | [{key: "link_url", value: "/loan/personal"}] |
+     | 1000000002 | scroll | 1701235000000000 | 房貸 | [{key: "percent_scrolled", value: "90"}] |
+     | 1000000003 | form_submit | 1701236000000000 | 外幣 | [{key: "form_id", value: "fx_inquiry"}] |
+     | ... | ... | ... | ... | ... |
+
+     > 共約 15,000~50,000 筆 (每人 3~10 個事件)，`product_line` 從信用卡/信貸/房貸/外幣隨機指派，模仿 GA4 BigQuery `events_*` 表結構
 
      4. ### 計算意圖標籤與產品線的關聯性分數
 
-* Mapping 表1 \~表 3 建立表 4。  
-  表 4\. user\_pseudo\_id、產品線、意圖標籤關聯表  
-  *(表格圖示 — 已移除)*  
+* Mapping 表1 \~表 3 建立表 4。
+
+  **表 4. user\_pseudo\_id、產品線、意圖標籤關聯表**
+
+  | user_pseudo_id | product_line | audience_id | audience_name | event_count |
+  | :------------- | :----------- | :---------- | :------------ | ----------: |
+  | 1000000001 | 信用卡 | 80002 | Credit Cards | 3 |
+  | 1000000001 | 信貸 | 80002 | Credit Cards | 1 |
+  | 1000000001 | 信用卡 | 80003 | Home Loans | 3 |
+  | 1000000002 | 房貸 | 80001 | Banking Services | 2 |
+  | ... | ... | ... | ... | ... |
+
+  > JOIN 表1~表3，展開巢狀欄位，每列為一組 (user, product_line, audience) 的事件互動次數，作為 AutoML 訓練的輸入特徵  
 * 在 Vertex AI 中的 AutoML 嘗試多個關聯度分析模型及關聯性分數計算方式，計算 50 個意圖標籤 與 4 個產品線 (信用卡、信貸、房貸、外幣) 間的關聯性分數 (分數介於 0\~1 之間)。  
 * 註：本專案僅建立信用卡、信貸、房貸、外幣等四個產品線的關聯性矩陣。
 
@@ -133,9 +196,19 @@ version 0.1  20241129
 
 * 將前一步驟計算完的資料存入 iKala BigQuery 中，建立表 5，首列為產品線名稱、首行為意圖標籤，表格的值為介於 0\~1 的關聯性分數。
 
-  表 5\. 意圖標籤與產品線關聯性矩陣
+  **表 5. 意圖標籤與產品線關聯性矩陣**
 
-  *(表格圖示 — 已移除)*
+  | audience_name | 信用卡 | 信貸 | 房貸 | 外幣 |
+  | :------------ | -----: | ---: | ---: | ---: |
+  | Credit Cards | 0.92 | 0.35 | 0.18 | 0.12 |
+  | Home Loans | 0.21 | 0.45 | 0.88 | 0.09 |
+  | Personal Loans | 0.38 | 0.87 | 0.42 | 0.15 |
+  | Foreign Exchange | 0.10 | 0.08 | 0.05 | 0.91 |
+  | Banking Services | 0.55 | 0.60 | 0.52 | 0.48 |
+  | Investment Services | 0.30 | 0.22 | 0.15 | 0.72 |
+  | ... | ... | ... | ... | ... |
+
+  > 50 列 (意圖標籤) x 4 欄 (產品線)，值為 AutoML 計算的關聯性分數 (0~1)，用於取各產品線前 N 名標籤建立 GA 目標對象
 
 
   3. ## **流程 1-2** {#流程-1-2}
@@ -153,7 +226,15 @@ version 0.1  20241129
 
    1. ##  **專案成員組織架構圖 （由客戶方提供）** {#專案成員組織架構圖-（由-客戶方-提供）}
 
-      *(組織架構圖 — 已移除)*
+<div class="mermaid">
+graph TD
+    A[督導委員會<br/>甲方高階主管 + iKala 高階主管] --> B[甲方專案經理]
+    A --> C[iKala 專案經理]
+    B --> D[甲方業務單位<br/>各產品線代表 1~2 位]
+    B --> E[甲方資安/資訊單位<br/>技術權限與架構支援]
+    C --> F[iKala 架構師團隊<br/>GCP 技術方案設計]
+    C --> G[iKala 執行團隊<br/>開發、測試與部署]
+</div>
 
    2. ##  **角色與職責** {#角色與職責}
 
@@ -210,4 +291,20 @@ version 0.1  20241129
 
 2. ## **附件二：完工驗收單**
 
-*(完工驗收單表格 — 已移除)*
+| 項目 | 內容 |
+| :--- | :--- |
+| 專案名稱 | GA 自定義貼標優化專案 |
+| 合約編號 | __________________ |
+| 驗收日期 | ____年____月____日 |
+| **驗收項目** | **驗收結果** |
+| 1. 專案工作說明書 (SoW) | ▢ 通過 / ▢ 不通過 |
+| 2. 專案啟動會議紀錄 | ▢ 通過 / ▢ 不通過 |
+| 3. Mock Data 生成 (表1~表3 於 BigQuery) | ▢ 通過 / ▢ 不通過 |
+| 4. AutoML 模型訓練與關聯性分數計算 | ▢ 通過 / ▢ 不通過 |
+| 5. 意圖標籤與產品線關聯性矩陣 (表5) | ▢ 通過 / ▢ 不通過 |
+| 6. Cloud Run 部署腳本可正常執行 | ▢ 通過 / ▢ 不通過 |
+| 7. GA API 建立四組目標對象 (信用卡/信貸/房貸/外幣) | ▢ 通過 / ▢ 不通過 |
+| 8. Demo 展示與會議紀錄 | ▢ 通過 / ▢ 不通過 |
+| **整體驗收結論** | ▢ 全數通過，同意驗收 / ▢ 部分未通過，需補正 |
+| 甲方專案經理簽章 | __________________ 日期：__________ |
+| iKala 專案經理簽章 | __________________ 日期：__________ |
