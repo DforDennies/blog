@@ -88,6 +88,7 @@ Agent 沒有記憶是最被用戶抱怨的問題。Phase 4 做了兩輪 Memory P
 |------|------|
 
 | LLM Provider | Azure OpenAI (GPT-4.1, o3-mini)、Anthropic (Claude Sonnet 4.5, Haiku 4.5) |
+|------|------|
 | Agent Framework | 自建 Multi-Agent Core |
 | Observability | LangFuse |
 | Memory | Mem0 + a-mem + Autogen query layer |
@@ -149,7 +150,7 @@ Admin 後台（palette-admin.kolr.ai）用 Next.js 15 + React 19 + shadcn/ui 建
 
 ## 客戶驗證
 
-40925 的 Agent 基礎設施被用在兩個外部客戶專案：研華（工業文件解析）和國泰健康管理（LINE 聊天機器人）。這兩個案子同時驗證了 Agent 架構在不同場景的適用性。
+40925 的 Agent 基礎設施被用在兩個外部客戶專案：Client B（工業文件解析）和Client C（健康管理）（LINE 聊天機器人）。這兩個案子同時驗證了 Agent 架構在不同場景的適用性。
 
 ---
 
