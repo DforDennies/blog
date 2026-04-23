@@ -4,8 +4,6 @@ title: "Threads 學術爬蟲系統設計（完整版）"
 permalink: /specs/Tech-Spec-社群爬蟲系統-脫敏版/
 ---
 
-# Threads 學術爬蟲系統設計（完整版）
-
 ## 專案目標
 為學術研究目的，爬取 Threads 公開帳號的貼文和留言資料。
 

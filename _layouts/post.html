@@ -8,7 +8,9 @@ layout: default
     <div class="article-meta">
       <span>Dennies Hong</span>
       <span>·</span>
-      <span>{{ page.content | number_of_words | divided_by: 300 | plus: 1 }} min read</span>
+      <span>{{ page.date | date: "%Y-%m-%d" }}</span>
+      <span>·</span>
+      <span>{{ page.content | size | divided_by: 600 | plus: 1 }} min read</span>
       <span>·</span>
       <span>{{ page.categories | first }}</span>
     </div>

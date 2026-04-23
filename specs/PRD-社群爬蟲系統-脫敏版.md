@@ -4,8 +4,6 @@ title: "Product Requirements Document (PRD)"
 permalink: /specs/PRD-社群爬蟲系統-脫敏版/
 ---
 
-# Product Requirements Document (PRD)
-
 # Threads 學術研究爬蟲系統
 
 ---

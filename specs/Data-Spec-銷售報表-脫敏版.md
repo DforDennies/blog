@@ -4,8 +4,6 @@ title: "Platform K 銷售報表規格書"
 permalink: /specs/Data-Spec-銷售報表-脫敏版/
 ---
 
-# Platform K 銷售報表規格書
-
 > 目標：復刻 Google Sheet「2023-2026銷售紀錄」17 欄 + 擴充三來源獨有資料  
 > 資料來源：BQ（[內部資料庫]）+ Admin Panel + Amplitude  
 > 主鍵：交易層級（每筆 billing / operation_memo 一列），以 `workspace_id` 串接  

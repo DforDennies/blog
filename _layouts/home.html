@@ -39,7 +39,9 @@ layout: default
         <div class="post-title">{{ post.title }}</div>
         <div class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
         <div class="post-bottom">
-          <span>{{ post.content | number_of_words | divided_by: 300 | plus: 1 }} min read</span>
+          <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+          <span>·</span>
+          <span>{{ post.content | size | divided_by: 600 | plus: 1 }} min read</span>
         </div>
       </div>
     </a>
