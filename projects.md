@@ -36,6 +36,7 @@ permalink: /projects/
     <h3>銷售報表 Pipeline</h3>
     <p>1,123 筆交易 → 9 Tab 報表 + GRR/NRR/MRR 自動追蹤。與業務手動報表 $0 差異，日/週/月報自動推送 Slack。</p>
     <div class="project-tech">Python · gspread · GitHub Actions CI</div>
+    <img src="{{ site.baseurl }}/assets/sales-pipeline-ci.png" alt="Sales Pipeline CI 截圖" class="project-screenshot">
   </div>
 
   <div class="project-card">
@@ -51,6 +52,7 @@ permalink: /projects/
     <h3>GA4 流量歸因框架</h3>
     <p>9 Key Events × 10 管道 × 5 層報告（日/週/月/季/年）+ 回溯機制。發現 Paid Social 無效，促成預算重分配。</p>
     <div class="project-tech">GA4 API · Chart.js · 健康評分模型</div>
+    <img src="{{ site.baseurl }}/assets/ga4-framework.png" alt="GA4 Framework 截圖" class="project-screenshot">
   </div>
 
   <hr style="margin:48px 0;border:none;border-top:1px solid rgba(0,0,0,.08);">
