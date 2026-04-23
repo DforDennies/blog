@@ -86,9 +86,7 @@ Agent 沒有記憶是最被用戶抱怨的問題。Phase 4 做了兩輪 Memory P
 
 | 層級 | 技術 |
 |------|------|
-
 | LLM Provider | Azure OpenAI (GPT-4.1, o3-mini)、Anthropic (Claude Sonnet 4.5, Haiku 4.5) |
-|------|------|
 | Agent Framework | 自建 Multi-Agent Core |
 | Observability | LangFuse |
 | Memory | Mem0 + a-mem + Autogen query layer |
