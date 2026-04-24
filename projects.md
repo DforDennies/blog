@@ -95,7 +95,7 @@ permalink: /projects/
     <a href="{{ site.baseurl }}/case-studies/ai-platform/" class="spec-card">
       <div class="spec-type" style="background:#7b1fa2;color:#fff;">Case Study</div>
       <h3>AI Platform</h3>
-      <p>帶領 20 人 AI Lab — 30+ 模型、準確率 +30%</p>
+      <p>統籌 20 人 AI Lab — 30+ 模型、準確率 +30%</p>
     </a>
 
     <a href="{{ site.baseurl }}/case-studies/tech-commercialization/" class="spec-card">

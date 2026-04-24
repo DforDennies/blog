@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Case Study: AI Platform — 帶領 20 人 AI Lab 的研究落地之路"
+title: "Case Study: AI Platform — 統籌 20 人 AI Lab 的研究落地之路"
 permalink: /case-studies/ai-platform/
 ---
 
