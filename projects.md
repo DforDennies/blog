@@ -70,6 +70,43 @@ permalink: /projects/
 
   <hr style="margin:48px 0;border:none;border-top:1px solid rgba(0,0,0,.08);">
 
+  <h2 class="section-title">Case Studies</h2>
+  <p class="section-desc">結構化的產品案例分析 — 從背景、行動到成果，展示真實的決策過程。</p>
+
+  <div class="spec-grid">
+    <a href="{{ site.baseurl }}/case-studies/crisis-leadership/" class="spec-card">
+      <div class="spec-type" style="background:#c62828;color:#fff;">Case Study</div>
+      <h3>Crisis Leadership</h3>
+      <p>57% 裁員下的產品存活戰 — 零流失、營收 +30%</p>
+    </a>
+
+    <a href="{{ site.baseurl }}/case-studies/internal-tools/" class="spec-card">
+      <div class="spec-type" style="background:#1565c0;color:#fff;">Case Study</div>
+      <h3>Internal Tools</h3>
+      <p>沒有工具？我自己做 — 3 套工具、50 位工程師使用</p>
+    </a>
+
+    <a href="{{ site.baseurl }}/case-studies/kolr-palette/" class="spec-card">
+      <div class="spec-type" style="background:#2e7d32;color:#fff;">Case Study</div>
+      <h3>KOL Palette (40925)</h3>
+      <p>AI Agent 產品從零到一 — 9 版本、4 種 LLM、MCP 協議</p>
+    </a>
+
+    <a href="{{ site.baseurl }}/case-studies/ai-platform/" class="spec-card">
+      <div class="spec-type" style="background:#7b1fa2;color:#fff;">Case Study</div>
+      <h3>AI Platform</h3>
+      <p>帶領 20 人 AI Lab — 30+ 模型、準確率 +30%</p>
+    </a>
+
+    <a href="{{ site.baseurl }}/case-studies/tech-commercialization/" class="spec-card">
+      <div class="spec-type" style="background:#e65100;color:#fff;">Case Study</div>
+      <h3>技術商業化</h3>
+      <p>把 AI 翻譯成客戶聽得懂的語言 — 2 個專案交付</p>
+    </a>
+  </div>
+
+  <hr style="margin:48px 0;border:none;border-top:1px solid rgba(0,0,0,.08);">
+
   <h2 class="section-title">規格文件範例</h2>
   <p class="section-desc">PM 的核心產出之一是文件。以下是脫敏後的真實規格文件。</p>
 
