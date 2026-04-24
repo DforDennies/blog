@@ -22,7 +22,7 @@ permalink: /projects/
     <div class="project-tech">Next.js · Neon PostgreSQL · Prisma · Chart.js</div>
     <img src="{{ site.baseurl }}/assets/amplitude-dashboard.png" alt="Amplitude Dashboard 截圖" class="project-screenshot">
     <div class="project-links">
-      <a href="{{ site.baseurl }}/2026/03/18/19-amplitude-dashboard/">→ 相關文章：Amplitude 儀表板架構</a>
+      <a href="{{ site.baseurl }}/2025/09/03/amplitude-dashboard/">→ 相關文章：Amplitude 儀表板架構</a>
     </div>
   </div>
 
@@ -33,7 +33,7 @@ permalink: /projects/
     <div class="project-tech">Python · 6 AI Agents · Plotly · GitHub Pages</div>
     <img src="{{ site.baseurl }}/assets/deep-report.png" alt="Deep Research Report 截圖" class="project-screenshot">
     <div class="project-links">
-      <a href="{{ site.baseurl }}/2026/03/11/12-企業交付/">→ 相關文章：企業交付的真實教訓</a>
+      <a href="{{ site.baseurl }}/2025/12/10/企業交付/">→ 相關文章：企業交付的真實教訓</a>
     </div>
   </div>
 
@@ -44,7 +44,7 @@ permalink: /projects/
     <div class="project-tech">Python · gspread · GitHub Actions CI</div>
     <img src="{{ site.baseurl }}/assets/sales-pipeline-ci.png" alt="Sales Pipeline CI 截圖" class="project-screenshot">
     <div class="project-links">
-      <a href="{{ site.baseurl }}/2026/03/14/15-銷售報表-340config/">→ 相關文章：銷售報表 340 Config</a>
+      <a href="{{ site.baseurl }}/2025/07/23/銷售報表-340config/">→ 相關文章：銷售報表 340 Config</a>
       <a href="{{ site.baseurl }}/specs/Data-Spec-銷售報表-脫敏版/">→ Data Spec</a>
     </div>
   </div>
@@ -64,7 +64,7 @@ permalink: /projects/
     <div class="project-tech">GA4 API · Chart.js · 健康評分模型</div>
     <img src="{{ site.baseurl }}/assets/ga4-framework.png" alt="GA4 Framework 截圖" class="project-screenshot">
     <div class="project-links">
-      <a href="{{ site.baseurl }}/2026/03/16/17-ga4-流量歸因/">→ 相關文章：GA4 流量歸因框架</a>
+      <a href="{{ site.baseurl }}/2026/02/04/ga4-流量歸因/">→ 相關文章：GA4 流量歸因框架</a>
     </div>
   </div>
 
