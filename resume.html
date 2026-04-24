@@ -1,0 +1,132 @@
+---
+layout: null
+permalink: /resume/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Dennies Hong — Resume</title>
+  <style>
+    @page { margin: 0.6in; size: letter; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: #222;
+      line-height: 1.45;
+      font-size: 10.5pt;
+      max-width: 8.5in;
+      margin: 0 auto;
+      padding: 0.6in;
+    }
+    a { color: #1a8917; text-decoration: none; }
+    h1 { font-size: 22pt; font-weight: 700; margin-bottom: 2px; }
+    .subtitle { font-size: 11pt; color: #555; margin-bottom: 8px; }
+    .contact { font-size: 9pt; color: #666; margin-bottom: 16px; }
+    .contact a { color: #666; }
+    .contact span { margin: 0 6px; }
+    h2 { font-size: 11pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #1a8917; border-bottom: 1px solid #ddd; padding-bottom: 3px; margin: 14px 0 8px; }
+    h3 { font-size: 10.5pt; font-weight: 700; margin-bottom: 2px; }
+    .role-line { display: flex; justify-content: space-between; align-items: baseline; }
+    .date { font-size: 9.5pt; color: #888; font-weight: 400; }
+    ul { padding-left: 16px; margin: 4px 0 10px; }
+    li { margin-bottom: 2px; font-size: 10pt; }
+    .skills-grid { display: grid; grid-template-columns: 100px 1fr; gap: 2px 12px; font-size: 10pt; margin-bottom: 10px; }
+    .skills-grid .label { font-weight: 600; color: #555; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+    .project { margin-bottom: 6px; }
+    .project strong { font-size: 10pt; }
+    .project p { font-size: 9.5pt; color: #444; margin: 1px 0; }
+    @media print {
+      body { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Dennies Hong (洪伯瑄)</h1>
+<div class="subtitle">AI/ML Product Manager</div>
+<div class="contact">
+  <a href="mailto:dennies1216@gmail.com">dennies1216@gmail.com</a>
+  <span>|</span>
+  <a href="https://linkedin.com/in/dennies-hong-b9b626248">LinkedIn</a>
+  <span>|</span>
+  <a href="https://dfordennies.github.io/blog/">Portfolio</a>
+  <span>|</span>
+  <a href="https://github.com/DforDennies">GitHub</a>
+  <span>|</span>
+  <a href="https://medium.com/@dennies1216">Medium</a>
+</div>
+
+<h2>Summary</h2>
+<p style="font-size:10pt;margin-bottom:10px;">
+  AI/ML Product Manager with 4 years of experience bridging ML research and commercial products. Led a 20-person AI Lab managing 30+ models across 6 platforms and 7 languages. During a 57% company layoff, single-handedly maintained 150 clients with zero churn and drove 30% revenue growth. Built 5 production-grade data tools from scratch. Shipped a multi-agent AI product (KOL Palette) from 0 to 1 through 9 versions.
+</p>
+
+<h2>Experience</h2>
+
+<div class="role-line">
+  <h3>Senior Product Manager — iKala / AI Lab</h3>
+  <span class="date">Jan 2023 – Present</span>
+</div>
+<ul>
+  <li>Led 20-person AI engineering team shipping search, recommendation, NLP, and computer vision systems across 7 languages and 6 social platforms</li>
+  <li>Drove AI Agent product (KOL Palette) from architecture design to commercialization — multi-agent orchestration, MCP protocol, LLM-as-a-Judge evaluation, Stripe billing</li>
+  <li>Improved platform accuracy 30%+, feature adoption 20%+, reduced maintenance cost 20%</li>
+  <li>Survived 57% layoff (300→130 staff): expanded beyond R&D to cover product strategy, sales support, and partner integration — maintained 150 clients zero churn, revenue +30%</li>
+  <li>Self-built 5 production tools: Amplitude dashboard (144M events), sales pipeline (9 tabs, GRR/NRR/MRR), GA4 attribution engine, ops dashboard, deep research report (6 AI agents)</li>
+  <li>Key tech decisions: MiniLM-64d over OpenAI embeddings (higher NDCG, 64% faster), BQ→Trino/Iceberg ($466 vs $1,200/mo), LLM labeling replacing traditional ML classification</li>
+</ul>
+
+<div class="role-line">
+  <h3>Deputy Manager, Creator Partnership — iKala</h3>
+  <span class="date">Mar 2022 – Dec 2022</span>
+</div>
+<ul>
+  <li>Built KOL partnership program from zero: recruited 1,000+ influencers, closed deals totaling NT$5M+</li>
+</ul>
+
+<h2>Key Projects</h2>
+<div class="two-col">
+  <div class="project">
+    <strong>Amplitude Interactive Dashboard</strong>
+    <p>144M events, 27,898 workspaces, 8-dim health scoring + benchmark. Next.js, Neon PG, Prisma, Chart.js</p>
+  </div>
+  <div class="project">
+    <strong>KOL Palette (AI Agent)</strong>
+    <p>Multi-agent platform: Swarm/Selector/Supervisor orchestration, MCP tools, Mem0 memory, PPT generation. 9 versions, 2 enterprise clients</p>
+  </div>
+  <div class="project">
+    <strong>Sales Report Pipeline</strong>
+    <p>1,123 transactions → 9-tab report. GRR/NRR/MRR tracking, $0 variance vs manual. Python, gspread, GitHub Actions CI</p>
+  </div>
+  <div class="project">
+    <strong>GA4 Attribution Framework</strong>
+    <p>9 Key Events × 10 channels × 5-tier reports. Discovered Paid Social 0.3% real CVR → budget reallocation</p>
+  </div>
+</div>
+
+<h2>Technical Skills</h2>
+<div class="skills-grid">
+  <span class="label">AI/ML</span><span>Elasticsearch, FAISS, MiniLM, DeepWalk, LangFuse, MCP, ONNX Runtime, LLM-as-a-Judge</span>
+  <span class="label">Data</span><span>Python, SQL, BigQuery, Trino/Iceberg, Kafka/Flink, Amplitude, GA4</span>
+  <span class="label">Product</span><span>Jira, Confluence, A/B Testing, RICE, Looker Studio, Tableau</span>
+  <span class="label">Infra</span><span>GKE, ArgoCD, Redis Sentinel, Docker, GitHub Actions</span>
+  <span class="label">Frontend</span><span>Next.js, React, Chart.js, Prisma, Tailwind CSS, Vercel</span>
+</div>
+
+<h2>Education</h2>
+<div class="role-line">
+  <span><strong>National Taiwan University</strong> — Business Administration (Progress Program)</span>
+  <span class="date">2022 – 2023</span>
+</div>
+<div class="role-line" style="margin-top:4px;">
+  <span><strong>National Chung Hsing University</strong> — Business Administration</span>
+  <span class="date">2019 – 2022</span>
+</div>
+
+<h2 style="margin-top:14px;">Languages</h2>
+<p style="font-size:10pt;">Chinese (Native) · English (Professional working proficiency) · Japanese (JLPT N3)</p>
+
+</body>
+</html>
