@@ -1,0 +1,133 @@
+---
+layout: null
+permalink: /resume-zh/
+---
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <title>洪伯瑄 — AI/ML 產品經理</title>
+  <style>
+    @page { margin: 0.6in; size: letter; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Noto Sans TC', 'Helvetica Neue', Arial, sans-serif;
+      color: #222;
+      line-height: 1.5;
+      font-size: 10.5pt;
+      max-width: 8.5in;
+      margin: 0 auto;
+      padding: 0.6in;
+    }
+    a { color: #1a8917; text-decoration: none; }
+    h1 { font-size: 22pt; font-weight: 700; margin-bottom: 2px; }
+    .subtitle { font-size: 11pt; color: #555; margin-bottom: 8px; }
+    .contact { font-size: 9pt; color: #666; margin-bottom: 16px; }
+    .contact a { color: #666; }
+    .contact span { margin: 0 6px; }
+    h2 { font-size: 11pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #1a8917; border-bottom: 1px solid #ddd; padding-bottom: 3px; margin: 14px 0 8px; }
+    h3 { font-size: 10.5pt; font-weight: 700; margin-bottom: 2px; }
+    .role-line { display: flex; justify-content: space-between; align-items: baseline; }
+    .date { font-size: 9.5pt; color: #888; font-weight: 400; }
+    ul { padding-left: 16px; margin: 4px 0 10px; }
+    li { margin-bottom: 2px; font-size: 10pt; }
+    .skills-grid { display: grid; grid-template-columns: 80px 1fr; gap: 2px 12px; font-size: 10pt; margin-bottom: 10px; }
+    .skills-grid .label { font-weight: 600; color: #555; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+    .project { margin-bottom: 6px; }
+    .project strong { font-size: 10pt; }
+    .project p { font-size: 9.5pt; color: #444; margin: 1px 0; }
+    @media print { body { padding: 0; } }
+  </style>
+</head>
+<body>
+
+<h1>洪伯瑄 Dennies Hong</h1>
+<div class="subtitle">AI/ML 產品經理</div>
+<div class="contact">
+  <a href="mailto:dennies1216@gmail.com">dennies1216@gmail.com</a>
+  <span>|</span>
+  <a href="https://linkedin.com/in/dennies-hong-b9b626248">LinkedIn</a>
+  <span>|</span>
+  <a href="https://dfordennies.github.io/blog/">作品集</a>
+  <span>|</span>
+  <a href="https://github.com/DforDennies">GitHub</a>
+  <span>|</span>
+  <a href="https://medium.com/@dennies1216">Medium</a>
+</div>
+
+<h2>簡介</h2>
+<p style="font-size:10pt;margin-bottom:10px;">
+  AI/ML 產品經理，專長把 ML 研究落地為可營利產品。帶領 20 人 AI Lab 管理 30+ 模型，跨 6 平台 7 語系。公司經歷 57% 裁員期間，獨力維持 150 位客戶零流失、營收成長 30%。自建 5 套生產級數據工具，主導 AI Agent 產品（KOL Palette）從 0 到 1 歷經 9 個版本迭代。
+</p>
+
+<h2>工作經歷</h2>
+
+<div class="role-line">
+  <h3>Senior Product Manager — iKala / AI Lab</h3>
+  <span class="date">2023/1 ~ 至今</span>
+</div>
+<ul>
+  <li>帶領 20 人 AI 工程團隊，管理語義搜尋（MiniLM + Elasticsearch）、推薦系統（DeepWalk + FAISS）、NLP 模型（mt5-base, ONNX）跨 7 語系研發到上線</li>
+  <li>主導 AI Agent 產品 KOL Palette — 多智能體架構（Swarm/Selector）、MCP 工具整合、Mem0 記憶、LLM-as-a-Judge 評估、Stripe 商業化</li>
+  <li>平台準確度提升 30%+，功能採用率提升 20%+，維護成本降低 20%</li>
+  <li>危機領導：57% 裁員後擴展職責至產品策略、銷售支援、合作夥伴整合 — 150 位客戶零流失，營收 +30%</li>
+  <li>自建 5 套工具：Amplitude 儀表板（144M 事件）、銷售 Pipeline（9 Tab + GRR/NRR/MRR）、GA4 歸因引擎、Ops Dashboard、深度研究報告（6 AI Agent 平行分析）</li>
+  <li>技術決策：MiniLM-64d 優於 OpenAI embedding（NDCG 更高、推理快 64%）、BQ→Trino/Iceberg（$466 vs $1,200/月）、LLM 標註取代傳統 ML 分類</li>
+</ul>
+
+<div class="role-line">
+  <h3>創作者計畫團隊副理 — iKala</h3>
+  <span class="date">2022/3 ~ 2022/12</span>
+</div>
+<ul>
+  <li>從零建立 KOL 長期合作計畫：招募 1,000+ 位網紅，促成合約總額超過 500 萬元</li>
+</ul>
+
+<h2>自建工具</h2>
+<div class="two-col">
+  <div class="project">
+    <strong>Amplitude 互動式儀表板</strong>
+    <p>144M 事件、27,898 workspace、8 維健康評分 + Benchmark。Next.js, Neon PG, Prisma, Chart.js</p>
+  </div>
+  <div class="project">
+    <strong>KOL Palette（AI Agent）</strong>
+    <p>多智能體平台：Swarm/Selector/Supervisor 編排、MCP 工具、Mem0 記憶、PPT 生成。9 版本、2 企業客戶</p>
+  </div>
+  <div class="project">
+    <strong>銷售報表 Pipeline</strong>
+    <p>1,123 筆交易 → 9 Tab 報表。GRR/NRR/MRR 追蹤，與業務手動報表 $0 差異。Python, gspread, GitHub Actions</p>
+  </div>
+  <div class="project">
+    <strong>GA4 流量歸因框架</strong>
+    <p>9 Key Events × 10 管道 × 5 層報告。發現 Paid Social 0.3% 真實 CVR → 預算重分配</p>
+  </div>
+</div>
+
+<h2>技術能力</h2>
+<div class="skills-grid">
+  <span class="label">AI/ML</span><span>Elasticsearch, FAISS, MiniLM, DeepWalk, LangFuse, MCP, ONNX Runtime, LLM-as-a-Judge</span>
+  <span class="label">數據</span><span>Python, SQL, BigQuery, Trino/Iceberg, Kafka/Flink, Amplitude, GA4</span>
+  <span class="label">產品</span><span>Jira, Confluence, A/B Testing, RICE, Looker Studio, Tableau</span>
+  <span class="label">基礎設施</span><span>GKE, ArgoCD, Redis Sentinel, Docker, GitHub Actions</span>
+  <span class="label">前端</span><span>Next.js, React, Chart.js, Prisma, Tailwind CSS, Vercel</span>
+</div>
+
+<h2>學歷</h2>
+<div class="role-line">
+  <span><strong>國立臺灣大學</strong> — 工商管理學系 Progress Program</span>
+  <span class="date">2022 ~ 2023</span>
+</div>
+<div class="role-line" style="margin-top:4px;">
+  <span><strong>國立中興大學</strong> — 企業管理學系</span>
+  <span class="date">2019 ~ 2022</span>
+</div>
+
+<h2 style="margin-top:14px;">語言</h2>
+<p style="font-size:10pt;">中文（母語）· 英文（Professional working proficiency）· 日文（JLPT N3）</p>
+
+<div style="color:white;font-size:1pt;line-height:1pt;opacity:0.01;">
+Product Manager Technical Program Manager AI PM ML PM Senior Product Manager 產品經理 技術專案經理 AI產品經理 專案管理 敏捷開發 Scrum Agile Machine Learning LLM Large Language Model NLP Elasticsearch FAISS Python SQL A/B Testing Data Analysis SaaS B2B MRR NRR GRR Churn Retention PRD Technical Specification Go-to-Market Kubernetes Kafka Docker ArgoCD Next.js React Multi-Agent MCP LangFuse RAG Prompt Engineering Cross-functional Leadership Crisis Management Stakeholder Management
+</div>
+</body>
+</html>
