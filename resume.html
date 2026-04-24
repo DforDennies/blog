@@ -8,44 +8,42 @@ permalink: /resume/
   <meta charset="utf-8">
   <title>Dennies Hong — Resume</title>
   <style>
-    @page { margin: 0.6in; size: letter; }
+    @page { margin: 0.55in; size: letter; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       color: #222;
-      line-height: 1.45;
-      font-size: 10.5pt;
+      line-height: 1.4;
+      font-size: 10pt;
       max-width: 8.5in;
       margin: 0 auto;
-      padding: 0.6in;
+      padding: 0.55in;
     }
-    a { color: #1a8917; text-decoration: none; }
-    h1 { font-size: 22pt; font-weight: 700; margin-bottom: 2px; }
-    .subtitle { font-size: 11pt; color: #555; margin-bottom: 8px; }
-    .contact { font-size: 9pt; color: #666; margin-bottom: 16px; }
-    .contact a { color: #666; }
-    .contact span { margin: 0 6px; }
-    h2 { font-size: 11pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #1a8917; border-bottom: 1px solid #ddd; padding-bottom: 3px; margin: 14px 0 8px; }
-    h3 { font-size: 10.5pt; font-weight: 700; margin-bottom: 2px; }
+    a { color: #333; text-decoration: none; }
+    h1 { font-size: 22pt; font-weight: 700; margin-bottom: 2px; text-align: center; }
+    .contact { font-size: 9pt; color: #555; margin-bottom: 14px; text-align: center; }
+    .contact a { color: #555; }
+    .contact span { margin: 0 4px; }
+    h2 { font-size: 10.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #222; border-bottom: 1.5px solid #222; padding-bottom: 2px; margin: 12px 0 6px; }
+    h3 { font-size: 10pt; font-weight: 700; margin-bottom: 0; }
+    .tech-used { font-size: 9pt; font-style: italic; color: #555; margin-bottom: 3px; }
     .role-line { display: flex; justify-content: space-between; align-items: baseline; }
-    .date { font-size: 9.5pt; color: #888; font-weight: 400; }
-    ul { padding-left: 16px; margin: 4px 0 10px; }
-    li { margin-bottom: 2px; font-size: 10pt; }
-    .skills-grid { display: grid; grid-template-columns: 100px 1fr; gap: 2px 12px; font-size: 10pt; margin-bottom: 10px; }
-    .skills-grid .label { font-weight: 600; color: #555; }
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
-    .project { margin-bottom: 6px; }
-    .project strong { font-size: 10pt; }
-    .project p { font-size: 9.5pt; color: #444; margin: 1px 0; }
-    @media print {
-      body { padding: 0; }
-    }
+    .date { font-size: 9pt; color: #555; font-weight: 400; }
+    .loc { font-size: 9pt; color: #555; font-style: italic; }
+    ul { padding-left: 15px; margin: 3px 0 8px; }
+    li { margin-bottom: 1.5px; font-size: 9.5pt; }
+    .skills-grid { display: grid; grid-template-columns: 90px 1fr; gap: 1px 10px; font-size: 9.5pt; margin-bottom: 8px; }
+    .skills-grid .label { font-weight: 600; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 20px; }
+    .project { margin-bottom: 5px; }
+    .project strong { font-size: 9.5pt; }
+    .project p { font-size: 9pt; color: #444; margin: 1px 0; }
+    @media print { body { padding: 0; } }
   </style>
 </head>
 <body>
 
 <h1>Dennies Hong (洪伯瑄)</h1>
-<div class="subtitle">AI/ML Product Manager</div>
 <div class="contact">
   <a href="mailto:dennies1216@gmail.com">dennies1216@gmail.com</a>
   <span>|</span>
@@ -58,24 +56,20 @@ permalink: /resume/
   <a href="https://medium.com/@dennies1216">Medium</a>
 </div>
 
-<h2>Summary</h2>
-<p style="font-size:10pt;margin-bottom:10px;">
-  AI/ML Product Manager with 4 years of experience bridging ML research and commercial products. Led a 20-person AI Lab managing 30+ models across 6 platforms and 7 languages. During a 57% company layoff, single-handedly maintained 150 clients with zero churn and drove 30% revenue growth. Built 5 production-grade data tools from scratch. Shipped a multi-agent AI product (KOL Palette) from 0 to 1 through 9 versions.
-</p>
-
 <h2>Experience</h2>
 
 <div class="role-line">
-  <h3>Senior Product Manager — iKala / AI Lab</h3>
+  <h3>Senior Product Manager, AI Lab — iKala</h3>
   <span class="date">Jan 2023 – Present</span>
 </div>
+<div class="tech-used">Python, Elasticsearch, FAISS, MCP, LangFuse, Next.js, Prisma, Chart.js</div>
 <ul>
-  <li>Led 20-person AI engineering team shipping search, recommendation, NLP, and computer vision systems across 7 languages and 6 social platforms</li>
-  <li>Drove AI Agent product (KOL Palette) from architecture design to commercialization — multi-agent orchestration, MCP protocol, LLM-as-a-Judge evaluation, Stripe billing</li>
-  <li>Improved platform accuracy 30%+, feature adoption 20%+, reduced maintenance cost 20%</li>
-  <li>Survived 57% layoff (300→130 staff): demonstrated crisis leadership, expanded beyond R&D to cover product strategy, sales support, and partner integration — maintained 150 clients zero churn, revenue +30%</li>
-  <li>Self-built 5 production tools: Amplitude dashboard (144M events), sales pipeline (9 tabs, GRR/NRR/MRR), GA4 attribution engine, ops dashboard, deep research report (6 AI agents)</li>
-  <li>Key tech decisions: MiniLM-64d over OpenAI embeddings (higher NDCG, 64% faster), BQ→Trino/Iceberg ($466 vs $1,200/mo), LLM labeling replacing traditional ML classification</li>
+  <li>Led <b>20-person</b> AI engineering team shipping search, recommendation, NLP, and CV systems across <b>7</b> languages and <b>6</b> social platforms; coordinated <b>5</b> cross-functional teams (<b>30+</b> engineers)</li>
+  <li>Drove AI Agent product (KOL Palette) from 0→1 through <b>9 versions</b> — multi-agent orchestration (Swarm/Selector/Supervisor), MCP protocol, Mem0 memory, LLM-as-a-Judge evaluation, Stripe billing</li>
+  <li>Improved platform accuracy <b>30%+</b> (BM25 + cosine hybrid search, GeneralTag → LLM labeling, DeepWalk + FAISS recommendation); boosted feature adoption <b>20%+</b></li>
+  <li>Demonstrated crisis leadership during <b>57%</b> company layoff (300→130 staff): single-handedly covered product strategy, sales support, and partnerships — maintained <b>150</b> clients with <b>zero churn</b>, drove revenue <b>+30%</b></li>
+  <li>Built <b>5</b> production-grade tools: Amplitude dashboard (<b>144M</b> events, <b>27,898</b> workspaces), sales pipeline (<b>9</b> tabs, GRR/NRR/MRR, <b>$0</b> variance vs manual), GA4 attribution (<b>9</b> Key Events × <b>10</b> channels), ops dashboard, deep research report (<b>6</b> AI agents parallel analysis)</li>
+  <li>Drove key tech decisions: MiniLM-64d over OpenAI embeddings (higher NDCG, <b>64%</b> faster inference), BigQuery→Trino/Iceberg (<b>$466</b> vs <b>$1,200</b>/mo), LLM labeling replacing traditional ML (<b>250x</b> cost difference)</li>
 </ul>
 
 <div class="role-line">
@@ -83,26 +77,26 @@ permalink: /resume/
   <span class="date">Mar 2022 – Dec 2022</span>
 </div>
 <ul>
-  <li>Built KOL partnership program from zero: recruited 1,000+ influencers, closed deals totaling NT$5M+</li>
+  <li>Built KOL partnership program from zero: recruited <b>1,000+</b> influencers, closed deals totaling <b>NT$5M+</b></li>
 </ul>
 
 <h2>Key Projects</h2>
 <div class="two-col">
   <div class="project">
     <strong>Amplitude Interactive Dashboard</strong>
-    <p>144M events, 27,898 workspaces, 8-dim health scoring + benchmark. Next.js, Neon PG, Prisma, Chart.js</p>
+    <p><b>144M</b> events, <b>27,898</b> workspaces, 8-dim health scoring + benchmark. Next.js, Neon PG, Prisma, Chart.js</p>
   </div>
   <div class="project">
     <strong>KOL Palette (AI Agent)</strong>
-    <p>Multi-agent platform: Swarm/Selector/Supervisor orchestration, MCP tools, Mem0 memory, PPT generation. 9 versions, 2 enterprise clients</p>
+    <p>Multi-agent platform: Swarm/Selector/Supervisor, MCP tools, Mem0 memory, PPT generation. <b>9</b> versions, <b>2</b> enterprise clients</p>
   </div>
   <div class="project">
     <strong>Sales Report Pipeline</strong>
-    <p>1,123 transactions → 9-tab report. GRR/NRR/MRR tracking, $0 variance vs manual. Python, gspread, GitHub Actions CI</p>
+    <p><b>1,123</b> transactions → 9-tab report. GRR/NRR/MRR tracking, <b>$0</b> variance vs manual. Python, gspread, GitHub Actions</p>
   </div>
   <div class="project">
     <strong>GA4 Attribution Framework</strong>
-    <p>9 Key Events × 10 channels × 5-tier reports. Discovered Paid Social 0.3% real CVR → budget reallocation</p>
+    <p><b>9</b> Key Events × <b>10</b> channels × 5-tier reports. Discovered Paid Social <b>0.3%</b> real CVR → budget reallocation</p>
   </div>
 </div>
 
@@ -120,13 +114,13 @@ permalink: /resume/
   <span><strong>National Taiwan University</strong> — Business Administration (Progress Program)</span>
   <span class="date">2022 – 2023</span>
 </div>
-<div class="role-line" style="margin-top:4px;">
+<div class="role-line" style="margin-top:3px;">
   <span><strong>National Chung Hsing University</strong> — Business Administration</span>
   <span class="date">2019 – 2022</span>
 </div>
 
-<h2 style="margin-top:14px;">Languages</h2>
-<p style="font-size:10pt;">Chinese (Native) · English (Professional working proficiency) · Japanese (JLPT N3)</p>
+<h2 style="margin-top:10px;">Languages</h2>
+<p style="font-size:9.5pt;">Chinese (Native) · English (Professional working proficiency) · Japanese (JLPT N3)</p>
 
 <div style="color:white;font-size:1pt;line-height:1pt;opacity:0.01;">
 Product Manager Technical Program Manager AI PM ML PM Senior Product Manager Head of Product Associate Product Manager Program Manager Project Manager Scrum Master Agile Coach Product Owner Technical Product Manager Growth PM Platform PM Data PM AI/ML Product Manager NLP Engineer Machine Learning Engineer Deep Learning Recommendation System Search Engine Information Retrieval Computer Vision LLM Large Language Model GPT Claude Anthropic OpenAI Prompt Engineering RAG Retrieval Augmented Generation Vector Database FAISS Elasticsearch Semantic Search BM25 Embedding MiniLM Sentence Transformer DeepWalk Graph Neural Network Knowledge Graph Multi-Agent System MCP Model Context Protocol LangChain LangFuse MLflow ONNX Runtime Model Deployment Model Serving A/B Testing Experimentation Product Analytics Data-Driven Decision Making OKR KPI RICE Framework User Research Customer Discovery PRD Product Requirements Document Technical Specification System Design Architecture Microservices gRPC Protobuf GraphQL REST API Kafka Flink CDC Event-Driven Architecture Data Pipeline ETL ELT Data Lake Data Warehouse BigQuery Trino Iceberg StarRocks PostgreSQL Redis GKE Kubernetes Docker ArgoCD GitOps CI/CD GitHub Actions Python SQL Next.js React TypeScript Tailwind CSS Chart.js Prisma Vercel SaaS B2B Enterprise Software Subscription Revenue MRR ARR GRR NRR Churn Retention Cohort Analysis Customer Health Score Sales Analytics Revenue Operations Cross-functional Leadership Team Management Stakeholder Management Crisis Management Strategic Planning Go-to-Market GTM Competitive Analysis Market Research Business Development Partnership Management Technical Writing Documentation Agile Scrum Sprint Planning Backlog Grooming
