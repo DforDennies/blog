@@ -103,6 +103,12 @@ permalink: /projects/
       <h3>技術商業化</h3>
       <p>把 AI 翻譯成客戶聽得懂的語言 — 2 個專案交付</p>
     </a>
+
+    <a href="{{ site.baseurl }}/case-studies/data-architecture/" class="spec-card">
+      <div class="spec-type" style="background:#00695c;color:#fff;">Case Study</div>
+      <h3>Data Architecture</h3>
+      <p>串連八層架構 — 475 萬 KOL 從爬蟲到搜尋的端到端資料流</p>
+    </a>
   </div>
 
   <hr style="margin:48px 0;border:none;border-top:1px solid rgba(0,0,0,.08);">
