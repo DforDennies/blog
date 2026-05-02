@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "學習筆記：KolRadar 數據管線架構——Kafka、Flink 到 Iceberg"
+permalink: /data-pipeline-kafka-flink/
 date: 2025-09-17
 categories: [平台架構]
 tags: [Software Architecture, DevOps, Data Engineering, Backend]

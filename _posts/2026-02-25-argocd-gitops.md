@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "GitOps 實戰：ArgoCD 管理 15+ GKE Cluster 的架構設計"
+permalink: /argocd-gitops/
 date: 2026-02-25
 categories: [平台架構]
 tags: [Software Architecture, DevOps, Data Engineering, Backend]

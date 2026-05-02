@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "我偷偷搭了三套數據系統"
+permalink: /s1-ep1-three-pipelines/
 date: 2026-04-06
 categories: [Kolr 數據驅動決策史]
 tags: [SaaS, Data Analysis, Product Management, Business Intelligence]

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "學習筆記：Redis Sentinel 遷移 — 一個 TPM 跟著 SRE 搞懂高可用的過程"
+permalink: /redis-sentinel/
 date: 2025-10-29
 categories: [平台架構]
 tags: [Software Architecture, DevOps, Data Engineering, Backend]

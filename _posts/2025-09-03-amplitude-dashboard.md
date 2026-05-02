@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "從 144M 事件到互動式儀表板：SQLite Pipeline → Next.js 遷移"
+permalink: /amplitude-dashboard/
 date: 2025-09-03
 categories: [數據驅動決策]
 tags: [Data Analysis, SaaS, Product Management, Analytics]

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "標籤系統從 HMTC 到 LLM：一次技術世代交替"
+permalink: /tagging-system-generaltag/
 date: 2026-01-07
 categories: [AI/ML 技術]
 tags: [Machine Learning, NLP, AI, Deep Learning]

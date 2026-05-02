@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "業配偵測系統：六語言 NLP 的產品化之路"
+permalink: /sponsored-detection-textsponsor/
 date: 2025-04-16
 categories: [AI/ML 技術]
 tags: [Machine Learning, NLP, AI, Deep Learning]

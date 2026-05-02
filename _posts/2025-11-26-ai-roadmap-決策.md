@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "AI 功能怎麼排優先級：從 P0 到 P3 的取捨邏輯"
+permalink: /ai-roadmap-decisions/
 date: 2025-11-26
 categories: [AI 產品策略]
 tags: [AI, Product Management, SaaS, Product Strategy]

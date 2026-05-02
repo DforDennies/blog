@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "找到用戶的 Aha Moment：SaaS 激活方法論實戰"
+permalink: /aha-moment/
 date: 2025-05-14
 categories: [AI 產品策略]
 tags: [AI, Product Management, SaaS, Product Strategy]

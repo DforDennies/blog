@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "前九個月，100% Unassigned"
+permalink: /s3-ep1-unassigned-to-12-channels/
 date: 2026-04-14
 categories: [Kolr 數據驅動決策史]
 tags: [SaaS, Data Analysis, Product Management, Business Intelligence]

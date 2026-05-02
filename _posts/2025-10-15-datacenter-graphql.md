@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "統一數據查詢入口：GraphQL + gRPC 封裝 ES"
+permalink: /datacenter-graphql/
 date: 2025-10-15
 categories: [平台架構]
 tags: [Software Architecture, DevOps, Data Engineering, Backend]

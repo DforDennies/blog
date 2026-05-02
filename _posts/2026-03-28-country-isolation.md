@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "全球化數據隔離：按國家拆 ES Index 的架構設計"
+permalink: /country-isolation/
 date: 2026-03-28
 categories: [平台架構]
 tags: [Software Architecture, DevOps, Data Engineering, Backend]

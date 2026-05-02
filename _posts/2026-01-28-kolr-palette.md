@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Kolr Palette：獨立 AI Agent 找網紅系統的架構設計"
+permalink: /kolr-palette/
 date: 2026-01-28
 categories: [AI 產品策略]
 tags: [AI, Product Management, SaaS, Product Strategy]

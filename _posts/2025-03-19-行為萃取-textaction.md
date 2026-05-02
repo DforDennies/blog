@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "從貼文萃取用戶行為：NLP 行為意圖分類實戰"
+permalink: /behavior-extraction-textaction/
 date: 2025-03-19
 categories: [AI/ML 技術]
 tags: [Machine Learning, NLP, AI, Deep Learning]

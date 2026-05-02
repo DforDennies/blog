@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "相似網紅怎麼算？從 TF-IDF 到 DeepWalk 的三次演進"
+permalink: /similar-kol-three-iterations/
 date: 2025-10-01
 categories: [AI/ML 技術]
 tags: [Machine Learning, NLP, AI, Deep Learning]

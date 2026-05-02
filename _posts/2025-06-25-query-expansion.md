@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "用 Qwen3-4B 微調搜尋擴展：提升 KOL 搜尋匹配度"
+permalink: /query-expansion/
 date: 2025-06-25
 categories: [AI/ML 技術]
 tags: [Machine Learning, NLP, AI, Deep Learning]
